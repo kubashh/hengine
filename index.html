@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>HEngine</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="config.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+
+
+<body>
+  <!-- Pseudo Canvas -->
+  <div>
+    <!-- Dropdown Menu -->
+    <div class="dropdown-menu">
+      <a>menu</a>
+      <ul>
+        <li>
+          <a onclick="startTestGame()">Test</a>
+        </li>
+        <li>
+          <a onclick="console.log(codeOptimalize(jsCode()))">Console Script</a>
+        </li>
+        <li>
+          <a onclick="buildGame()">Download</a>
+        </li>
+        <li>
+          <label for="plikInput">
+            <a>Load</a>
+          </label>
+          <input type="file" id="plikInput" style="display: none;" accept=".json">
+        </li>
+        <li>
+          <a id="saveButton" onclick="save()">Save File</a>
+        </li>
+        <li>
+          <a onclick="showConfig()">Config</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main>
+    <div class="container">
+      <!-- Hierarchy -->
+      <div class="hierarchyBox item">
+        <div class="nameBorder">Hierarchy</div>
+        <div id="hierarchy">
+          <div class="tab">text</div>
+        </div>
+      </div>
+
+      <!-- Files -->
+      <div class="filesBox item">
+        <div class="nameBorder">Files</div>
+        <div id="files">
+          <div>text</div>
+        </div>
+      </div>
+
+      <!-- Inspector -->
+      <div class="inspectorBox item">
+        <div class="nameBorder">Inspector</div>
+        <div id="inspector">
+          <div>text</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <script src="src/config.js"></script>
+  <script src="src/functions.js"></script>
+  <script src="src/input.js"></script>
+  <script src="src/textEditor.js"></script>
+
+  <script src="editor/classes/Obj.js"></script>
+  <script src="editor/classes/Sprite.js"></script>
+  <script src="editor/classes/Script.js"></script>
+
+  <script src="editor/testGame.js"></script>
+  <script src="editor/hierarchy.js"></script>
+  <script src="editor/files.js"></script>
+  <script src="editor/inspector.js"></script>
+
+  <script src="build/functions.js"></script>
+  <script src="build/htmlCode.js"></script>
+  <script src="build/fullScreen.js"></script>
+  <script src="build/classes.js"></script>
+  <script src="build/startAndUpdate.js"></script>
+  <script src="build/codeOptimalize.js"></script>
+  <script src="build/build.js"></script>
+
+  <script src="src/load.js"></script>
+  <script src="src/save.js"></script>
+
+  <script src="index.js"></script>
+</body>
+</html>
