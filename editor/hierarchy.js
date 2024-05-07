@@ -2,22 +2,17 @@ const hierarchy = document.getElementById("hierarchy")
 
 
 function refreshHierarchy() {
-  while(hierarchy.firstChild) {
-    hierarchy.removeChild(hierarchy.firstChild)
-  }
+  hierarchy.innerHTML = ""
 
   for(let object of objects) {
     hierarchy.appendChild(createElement(object))
   }
+}
 
-  hierarchy.appendChild(createHtmlElement({
-    text: "+ Add New Object",
-    style: "curcor: pointer;",
-    onclick: () => {
-      new Obj({})
-      refreshHierarchy()
-    }
-  }))
+
+function createNewObject() {
+  new Obj({})
+  refreshHierarchy()
 }
 
 

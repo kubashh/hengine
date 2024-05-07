@@ -37,11 +37,11 @@ document.addEventListener('keydown', (event) => {
       case "q":
         event.preventDefault()
         startTestGame()
-      case "a":
+        break
+      case "y":
         event.preventDefault()
-        const num = (inWhat + 1) % 2
-        checkInspector(num)
-        console.log(num)
+        CONFIG.show()
+        break
     }
   }
 })

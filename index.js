@@ -1,8 +1,19 @@
 const objects = []
 
 
+const scenes = [{objects: []}]
+
+
+let selectedScene = scenes[0]
+
+
 function findElementByName(name) {
   return objects.find(o => o.name === name)
+}
+
+
+function saveScene() {
+  selectedScene.objects = deepCopy(objects)
 }
 
 
@@ -32,9 +43,13 @@ refreshHierarchy()
 refreshFiles()
 
 new Obj({script: `start() {
-  for(let i = 0; i < 100000; i++) {
-    clone(NewObject0)
+  for(let i = 0; i < 20000; i++) {
+    clone(selectedScene.NewObject0)
   }
 }`})
 
 refreshInspector(new Obj({script: defaultScript}))
+
+saveScene()
+
+document.addEventListener("click", saveScene)

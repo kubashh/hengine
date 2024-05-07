@@ -1,0 +1,12 @@
+.filesBox {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+  background-color: black;
+}
+
+
+#files {
+  height: calc(45vh - 20px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

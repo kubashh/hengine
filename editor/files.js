@@ -1,20 +1,159 @@
-const filesElement = document.getElementById("files")
+const filesElement = createHtmlElement({
+  style: "padding:5px;"
+})
+document.getElementById("files").innerHTML = ""
+document.getElementById("files").appendChild(filesElement)
 const files = {
-  file1: {
-    object1: "string"
+  type: "folder",
+  engineAssets: {
+    type: "folder",
+    tempImage: {
+      type: "image",
+      value: {
+        src: "data:image/png;base64",
+        width: 1,
+        height: 1
+      },
+    }
   },
-  file2: {
-    object2: "str 2",
+  folder1: {
+    type: "folder",
+    object2: {
+      type: "text",
+      value: "str 2"
+    },
     obj3: {
-      obj4: "ds",
-      obj5: "dss"
+      type: "folder",
+      obj4: {
+        type: "text",
+        value: "str 3"
+      },
+      obj5: {
+        type: "text",
+        value: "str 4"
+      }
+    }
+  },
+  folder2: {
+    type: "folder",
+    object2: {
+      type: "text",
+      value: "str 5"
+    },
+    obj2: {
+      type: "folder",
+      obj4: {
+        type: "text",
+        value: "str 5"
+      },
+      obj5: {
+        type: "text",
+        value: "str 8"
+      }
     }
   }
 }
 
-console.log(files)
 
-let selectedFile = files
+const FILES = {
+  next(bool = true) {
+    let obiekt = getCurrentFolder()
+    const keys = Object.keys(obiekt).filter(item => item !== "type")
+    let indexNow = keys.indexOf(selectedFileName)
+    if(bool) {
+      indexNow++
+      if(indexNow >= keys.length) {
+        indexNow = 0
+      }
+    } else {
+      indexNow--
+      if(indexNow < 0) {
+        indexNow = keys.length - 1
+      }
+    }
+
+    selectedFileName = keys[indexNow]
+    selectedFile = obiekt[selectedFileName]
+
+    refreshFiles()
+  },
+
+
+  up() {
+    FILES.next(false)
+  },
+
+
+  down() {
+    FILES.next()
+  },
+
+
+  left() {
+    if(selectedFilePath.length > 1) {
+      selectedFilePath.pop()
+      this.refreshSelectedFile()
+    }
+  },
+
+
+  right(name = selectedFileName) {
+    if(selectedFile?.type == "folder") {
+      selectedFilePath.push(name)
+      this.refreshSelectedFile()
+    }
+  },
+
+  refreshSelectedFile() {
+    /*let element = files
+    for(let f of selectedFilePath) {
+      if(f != "files") {
+        element = element[f]
+      }
+    }*/
+
+    const element = selectedFilePath.reduce((acc, f) => (f !== "files" ? acc[f] : acc), files)
+
+    selectedFileName = Object.keys(element).find(key => key != "type")
+    selectedFile = element[selectedFileName]
+
+    refreshFiles()
+  }
+}
+
+
+let inFiles = true
+
+document.addEventListener("keydown", (event) => {
+  if(false && selectedField == selectedOptions.FILES) {
+    switch(event.key) {
+      case "ArrowUp":
+        FILES.up()
+        break
+      case "ArrowDown":
+        FILES.down()
+        break
+      case "ArrowLeft":
+        FILES.left()
+        break
+      case "ArrowRight":
+        FILES.right()
+        break
+      case "Enter": {
+        FILES.right()
+        break
+      }
+    }
+  }
+})
+
+
+
+const selectedFilePath = ["files"]
+let selectedFileName = ""
+
+let selectedFile = ""
+FILES.refreshSelectedFile()
 
 
 function newFile(name = "NewFile") {
@@ -25,87 +164,174 @@ function newFile(name = "NewFile") {
 
 
 function refreshFiles() {
-  while(filesElement.firstChild) {
-    filesElement.removeChild(filesElement.firstChild)
-  }
+  filesElement.innerHTML = ""
 
   allFileStructureToHtml()
 
-  filesElement.appendChild(createHtmlElement({
-    text: "Copy path",
-    style: "curcor: pointer;",
-    onclick: copyCurrentPath
-  }))
+  addFileInfo()
 
-  filesElement.appendChild(createHtmlElement({
-    text: "+ Add New File",
-    style: "curcor: pointer;",
-    onclick: () => {
-      addFile()
-      refreshFiles()
-    }
-  }))
+  console.log(selectedFile)
 }
 
 
-function createFileElement(div, file, name, deep) {
+function createFileElement(file, name) {
   let element = createHtmlElement({
-    text: name,
-    className: "tab" + deep,
-    onclick: () => {
+    text: `${name} (${file.type})`,
+    style: "margin-left:16px; cursor:pointer;"
+  })
+
+  if(file.type == "folder") {
+    element.addEventListener("click", () => {
+      FILES.right(name)
+    })
+  } else {
+    element.addEventListener("click", () => {
       selectedFile = file
       refreshFiles(file)
-    }
-  })
+    })
+  }
 
   if(file == selectedFile) {
     element.style.color = "yellow"
   }
   
-  div.appendChild(element)
-
-  if(typeof file === 'object') {
-    if(Object.keys(file).length > 0) {
-      for(let key in file) {
-        createFileElement(div, file[key], key, deep + 1)
-      }
-    }
-  }
+  return element
 }
 
 
+
 function allFileStructureToHtml() {
-  let div = createHtmlElement({
+  const div = createHtmlElement({
   })
 
-  for(let key in files) {
-    createFileElement(div, files[key], key, 0)
+
+  const filePathElement = createHtmlElement({
+    style: "display:flex;"
+  })
+
+
+  let i = 1
+  for(let f of selectedFilePath) {
+    const j = i
+    filePathElement.appendChild(createHtmlElement({
+      text: f + ".",
+      onclick: () => {
+        selectedFilePath.length = j
+        refreshFiles()
+      }
+    }))
+    i++
+  }
+
+
+  div.appendChild(filePathElement)
+
+
+  const newElement = createHtmlElement({
+    text: "..",
+    style: "margin-left:16px; cursor: pointer;"
+  })
+
+  if(selectedFilePath.length > 1) {
+    newElement.addEventListener("click", () => {
+      FILES.left()
+    })
+  }
+  
+  div.appendChild(newElement)
+
+  let element = getCurrentFolder()
+  for(let key in element) {
+    if(key != "type") {
+      div.appendChild(createFileElement(element[key], key))
+    }
   }
 
   filesElement.appendChild(div)
 }
 
 
-function addFile() {
+
+function addFileInfo() {
+  filesElement.appendChild(createHtmlElement({
+    style: "margin-top:50px;",
+    childs: [
+      createHtmlElement({
+        style: "display:flex;",
+        childs: [
+          createHtmlElement({
+            name: "input",
+            text: selectedFileName,
+            style: "margin-right:16px;",
+            onchange: (event) => {
+              // rename file to value
+              const folder = getCurrentFolder()
+              selectedFile = deepCopy(selectedFile)
+              delete folder[selectedFileName]
+              selectedFileName = checkString(event.target.value)
+              folder[selectedFileName] = selectedFile
+              refreshFiles()
+            }
+          }),
+          createHtmlElement({
+            text: `(${selectedFile?.type})`
+          }),
+          createHtmlElement({
+            text: "Delete file",
+            onclick: deleteSelectedFile
+          })
+        ]
+      }),
+      createHtmlElement({
+        text: JSON.stringify(selectedFile)
+      })
+    ]
+  }))
+}
+
+
+
+
+
+function getCurrentFolder() {
+  let element = files
+  for(let f of selectedFilePath) {
+    if(f != "files") {
+      element = element[f]
+    }
+  }
+
+  return element
+}
+
+
+
+
+function addNewFolder() {
+  let folder = getCurrentFolder()
   let name = checkFileName("NewFile")
-  files[name] = "none"
+  folder[name] = {
+    type: "folder"
+  }
 
   refreshFiles()
 }
 
 
-function renameFile(file, name) {
-
+function importFile() {
+  
 }
 
 
+
 function checkFileName(name) {
-  if(!findFileByName(name)) {
+  const folder = getCurrentFolder()
+  if(!findFileByName(name, folder)) {
     return name
   }
 
   let i = 0
-  while(findFileByName(name + i)) {
+  while(findFileByName(name + i, folder)) {
     i++
   }
 
@@ -113,33 +339,33 @@ function checkFileName(name) {
 }
 
 
-function findFileByName(name) {
-  return name in files
-}
-
-
-function getPathByFile(files, targetFile, currentPath = "files") {
-  for (let key in files) {
-    if (files[key] === targetFile) {
-      return (currentPath === '') ? key : currentPath + '.' + key;
-    } else if (typeof files[key] === 'object') {
-      const result = getPathByFile(files[key], targetFile, (currentPath === '') ? key : currentPath + '.' + key);
-      if (result !== null) return result;
-    }
-  }
-  return null; // Jeśli plik nie został znaleziony
+function findFileByName(name, folder = files) {
+  return name in folder
 }
 
 
 
 function copyCurrentPath() {
-  const path = getPathByFile(files, selectedFile);
-  if(path) {
-    navigator.clipboard.writeText(path);
+  let path = ""
+  for(let p of selectedFilePath) {
+    path += p + "."
   }
+  path += selectedFileName
+  navigator.clipboard.writeText(path)
 }
 
 
-document.addEventListener("click", () => {
-  copyCurrentPath()
-})
+function deleteSelectedFile() {
+  const folder = getCurrentFolder()
+  delete folder[selectedFileName]
+  FILES.refreshSelectedFile()
+}
+
+
+refreshFiles()
+
+
+
+function checkString(string) {
+  return string.replace(/^\d+|\W+/g, '')
+}

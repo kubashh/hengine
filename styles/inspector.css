@@ -1,0 +1,65 @@
+.inspectorBox {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 2;
+  background-color: black;
+  height: 100vh;
+}
+
+
+#inspector {
+  height: 100%;
+  padding-left: 6px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+
+
+
+.inspectorContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+.inspectorDiv {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.inspectorItem {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8px;
+}
+
+
+.section {
+  padding-bottom: 8px;
+  border-bottom: 2px var(--color3) solid;
+  margin-top: 16px;
+}
+
+.valueInput {
+  padding: 2px;
+  margin: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerOfSection {
+  padding: 0;
+  margin: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.addNewComponent {
+  display: table;
+  align-self: center;
+  margin: 16px 0 0 24px;
+  background-color: var(--color3);
+  padding: 4px 6px;
+  width: fit-content;
+}

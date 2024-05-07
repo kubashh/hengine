@@ -63,6 +63,10 @@ class Obj {
       object.script = this.script
     }
 
+    if(this.text) {
+      object.text = this.text
+    }
+
     return object
   }
 
@@ -78,6 +82,10 @@ class Obj {
 
     if(object.script) {
       jsObject.script = object.script
+    }
+
+    if(object.text) {
+      jsObject.text = object.text
     }
 
     return new Obj(jsObject)

@@ -1,0 +1,42 @@
+- Collider
+- Text
+- Gravity
+- velocity
+- Sprites
+- Files
+- Animatnion
+- Button
+- Scenes System
+
+
+
+
+
+
+
+
+-- IDEAS --
+
+Grafiki:
+  Sprite'y postaci: różne animacje postaci, takie jak chodzenie, skakanie, atakowanie.
+  Tła: tła poziomów, scenerie, krajobrazy.
+  Przedmioty: elementy interaktywne, takie jak monety, klucze, broń.
+  Interfejs użytkownika: przyciski, ikony, paski życia i energii, menu.
+  Efekty specjalne: eksplozje, cząsteczki, błyskawice.
+Dźwięki:
+  Efekty dźwiękowe: dźwięki interakcji, takie jak skoki, zbieranie przedmiotów, strzały.
+  Muzyka tła: ścieżki muzyczne dla różnych poziomów, menu, ekranów.
+Animacje:
+  Animacje postaci: ruch postaci, skoki, ataki, efekty specjalne.
+  Animacje efektów: animowane efekty takie jak ognie, dym, płyny.
+Teksty:
+  Dialogi: teksty postaci, dialogi fabularne, napisy.
+  Teksty interfejsu użytkownika: instrukcje, komunikaty, podpowiedzi.
+Mapy i poziomy:
+  Konfiguracje poziomów: ustawienia terenu, rozmieszczenie przeszkód, obiektów i przeciwników.
+  Tła paralaksy: ruchome tła, które dodają głębię do scen.
+Fonty:
+  Specjalne czcionki do tekstu w grze, dialogów, napisów.
+
+
+Assety te są kluczowymi elementami tworzącymi atmosferę, gameplay i interakcję w grze 2D. Ważne jest, aby dopasować je do stylu graficznego i mechanik gry, aby uzyskać spójne i atrakcyjne wrażenia dla graczy.

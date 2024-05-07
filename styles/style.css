@@ -1,0 +1,137 @@
+:root {
+  --color0: #aaa;
+  --color3: #111;
+
+  --tab-size: 16px;
+}
+
+
+
+html, body {
+  background-color: black;
+  color: white;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Ukrywa paski przewijania */
+  user-select: none;
+}
+
+input {
+  color: white;
+  background-color: var(--color3);
+  margin: 0;
+}
+
+textarea {
+  text-decoration: none;
+  background-color: var(--color3);
+  color: white;
+  border-radius: 0;
+  padding: 8px 12px;
+  border: 0;
+  margin: 0;
+  outline: none;
+}
+
+
+
+
+.nameBorder {
+  border-bottom: 1px var(--color0) solid;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nameBorder a {
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.nameBorder a:hover {
+  color: red;
+  transition: 120ms;
+}
+
+
+
+.container {
+  display: grid;
+  grid-template-columns: 320px auto;
+  grid-template-rows: 55vh auto;
+  gap: 1px;
+  background-color: var(--color0);
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.item {
+  display: grid;
+  grid-template-rows: 20px auto;
+}
+
+
+
+
+.tab, .tab1 {
+  margin-left: var(--tab-size);
+}
+
+.tab2 {
+  margin-left: calc(var(--tab-size) * 2);
+}
+
+.tab3 {
+  margin-left: calc(var(--tab-size) * 3);
+}
+
+.tab4 {
+  margin-left: calc(var(--tab-size) * 4);
+}
+
+.tab5 {
+  margin-left: calc(var(--tab-size) * 5);
+}
+
+
+
+.rowStyle {
+  display: flex;
+}
+
+
+
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #222;
+  border-radius: 0;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #222;
+}
+
+/* Styl dla pseudoelementu ::before (ptaszka) */
+input[type="checkbox"]::before {
+  content: '\2713'; /* Kod Unicode dla ptaszka */
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  line-height: 20px;
+  color: white; /* Kolor ptaszka */
+  opacity: 0; /* Ukryj ptaszka na początku */
+}
+
+input[type="checkbox"]:checked::before {
+  opacity: 1;
+}

@@ -6,14 +6,75 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="config.css" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+  <!-- Styles -->
+  <link href="styles/config.css" rel="stylesheet">
+
+  <link href="styles/style.css" rel="stylesheet">
+
+  <link href="styles/header.css" rel="stylesheet">
+  <link href="styles/hierarchy.css" rel="stylesheet">
+  <link href="styles/files.css" rel="stylesheet">
+  <link href="styles/inspector.css" rel="stylesheet">
+
+
+  
+  <!-- Resources -->
+  <script defer src="data/log.js"></script>
+  <script defer src="data/info.js"></script>
+  <script defer src="data/config.js"></script>
+
+  <script defer src="src/editorLoad.js"></script>
+
+
+
+  <!-- Build stafs -->
+  <script defer src="build/classes/Obj.js"></script>
+  <script defer src="build/classes/Transform.js"></script>
+  <script defer src="build/classes/Sprite.js"></script>
+  <script defer src="build/classes/Scene.js"></script>
+
+  <script defer src="build/classes.js"></script>
+
+  <script defer src="build/functions.js"></script>
+  <script defer src="build/htmlCode.js"></script>
+  <script defer src="build/fullScreen.js"></script>
+  <script defer src="build/startAndUpdate.js"></script>
+  <script defer src="build/codeOptimalize.js"></script>
+  <script defer src="build/build.js"></script>
+
+
+
+  <!-- Editor -->
+  <script defer src="src/functions.js"></script>
+  <script defer src="src/input.js"></script>
+  <script defer src="src/textEditor.js"></script>
+
+  <script defer src="editor/classes/Obj.js"></script>
+  <script defer src="editor/classes/NameAndTransform.js"></script>
+  <script defer src="editor/classes/Sprite.js"></script>
+  <script defer src="editor/classes/Script.js"></script>
+  <script defer src="editor/classes/Text.js"></script>
+  <script defer src="editor/classes/Config.js"></script>
+  <script defer src="editor/classes/EngineInfo.js"></script>
+
+  <script defer src="editor/testGame.js"></script>
+  <script defer src="editor/hierarchy.js"></script>
+  <script defer src="editor/files.js"></script>
+  <script defer src="editor/inspector.js"></script>
+
+  <script defer src="src/load.js"></script>
+  <script defer src="src/save.js"></script>
+
+  <script defer src="editor/editor.js"></script>
+
+  <!-- Main file -->
+  <script defer src="index.js"></script>
 </head>
 
 
 <body>
   <!-- Pseudo Canvas -->
-  <div>
+  <header>
     <!-- Dropdown Menu -->
     <div class="dropdown-menu">
       <a>menu</a>
@@ -37,67 +98,81 @@
           <a id="saveButton" onclick="save()">Save File</a>
         </li>
         <li>
-          <a onclick="showConfig()">Config</a>
+          <a onclick="CONFIG.show()">Config</a>
         </li>
+      </li>
+      <li>
+        <a onclick="ENGINEINFO.show()">Engine Info</a>
+      </li>
       </ul>
     </div>
-  </div>
+
+    <!-- Pop up load -->
+    <div id="popup-load">
+      <div>
+        <a onclick="firstLoad()">Load Project</a>
+        <a onclick="newProject()">New Project</a>
+      </div>
+    </div>
+  </header>
 
   <!-- Main content -->
   <main>
     <div class="container">
       <!-- Hierarchy -->
       <div class="hierarchyBox item">
-        <div class="nameBorder">Hierarchy</div>
+        <div class="nameBorder">
+          <div>Hierarchy</div>
+          <div>
+            <a onclick="createNewObject()">+ Add New Object</a>
+          </div>
+        </div>
         <div id="hierarchy">
+          <!-- Hierarchy elements goes here -->
           <div class="tab">text</div>
         </div>
       </div>
 
       <!-- Files -->
       <div class="filesBox item">
-        <div class="nameBorder">Files</div>
+        <div class="nameBorder">
+          <div>Files</div>
+          <div>
+            <a onclick="importFile()">Import File</a>
+            <a onclick="addNewFolder()">New Folder</a>
+            <a onclick="copyCurrentPath()">Path</a>
+          </div>
+        </div>
         <div id="files">
+          <!-- Files goes here -->
           <div>text</div>
         </div>
       </div>
 
       <!-- Inspector -->
       <div class="inspectorBox item">
-        <div class="nameBorder">Inspector</div>
+        <div class="nameBorder">
+          <div>Inspector</div>
+          <div>
+            <a style="margin-right: 60px;" onclick="deleteSelectedObject()">Delete</a>
+          </div>
+        </div>
         <div id="inspector">
+          <!-- Inspector elements goes here -->
           <div>text</div>
         </div>
       </div>
+
+      <!-- Scene -->
+      <!--div class="sceneBox item">
+        <div class="nameBorder">
+          <div>Scene</div>
+        </div>
+        <div id="scene">
+          <canvas id="sceneCanvas">text</canvas>
+        </div>
+      </div-->
     </div>
   </main>
-
-
-  <script src="src/config.js"></script>
-  <script src="src/functions.js"></script>
-  <script src="src/input.js"></script>
-  <script src="src/textEditor.js"></script>
-
-  <script src="editor/classes/Obj.js"></script>
-  <script src="editor/classes/Sprite.js"></script>
-  <script src="editor/classes/Script.js"></script>
-
-  <script src="editor/testGame.js"></script>
-  <script src="editor/hierarchy.js"></script>
-  <script src="editor/files.js"></script>
-  <script src="editor/inspector.js"></script>
-
-  <script src="build/functions.js"></script>
-  <script src="build/htmlCode.js"></script>
-  <script src="build/fullScreen.js"></script>
-  <script src="build/classes.js"></script>
-  <script src="build/startAndUpdate.js"></script>
-  <script src="build/codeOptimalize.js"></script>
-  <script src="build/build.js"></script>
-
-  <script src="src/load.js"></script>
-  <script src="src/save.js"></script>
-
-  <script src="index.js"></script>
 </body>
 </html>

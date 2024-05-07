@@ -34,10 +34,15 @@ function clone(object) {
   })
   for(const key in object) {
     if(object.hasOwnProperty(key) && !newObject.hasOwnProperty(key)) {
-      newObject[key] = object[key].bind(newObject)
+      if (typeof object[key] === 'function') { // Sprawdzenie, czy wartość jest funkcją
+        newObject[key] = object[key].bind(newObject)
+      } else {
+        newObject[key] = object[key]
+      }
     }
   }
 
+  objects.push(newObject)
   newObject.start?.()
 }
 

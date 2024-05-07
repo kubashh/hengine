@@ -17,3 +17,17 @@ function fullScreen() {
     })
   `
 }
+
+
+function safeUnload() {
+  if(!config.safeUnload) {
+    return ""
+  }
+  return `
+    window.addEventListener('beforeunload', (event) => {
+      event.preventDefault()
+      console.log("exit")
+    })
+  `
+}
+

@@ -1,4 +1,7 @@
 const SPRITE = {
+  defaultPath: "files.engineAssets.tempImage",
+
+
   sprite: createSection(
     "Sprite",
     [
@@ -56,7 +59,7 @@ const SPRITE = {
       this.addSprite.style.display = "none"
     } else {
       document.getElementById("spriteInput").value = "blue"
-      document.getElementById("imagePathInput").value = ""
+      document.getElementById("imagePathInput").value = this.defaultPath
       this.sprite.style.display = "none"
       this.addSprite.style.display = "block"
     }
@@ -74,7 +77,7 @@ const SPRITE = {
       color: "blue",
       width: 1,
       height: 1,
-      imagePath: ""
+      imagePath: this.defaultPath
     }
   }
 }

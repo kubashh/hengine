@@ -63,12 +63,16 @@ const SCRIPT = {
 
 const defaultScript = `start() {
   this.transform.position.y = randInt(0, 1080)
-  del(this, randInt(5000, 40000))
+  this.speed = randNum(0, 10)
+  //del(this, randInt(30000, 40000))
 },
 
 update() {
-  this.transform.position.x += randInt(0, 8)
+  this.transform.position.x += this.speed
+  this.speed -= randNum(0.01, 0.015)
   if(this.transform.position.x > 1920) {
     this.transform.position.x -= 1920
+  } else if(this.transform.position.x < 0) {
+    this.transform.position.x = 1920
   }
 }`

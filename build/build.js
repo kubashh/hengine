@@ -1,6 +1,6 @@
 function objectToString(object) {
   return `
-    let ${object.name} = new Obj ({
+    ${object.name}: new Obj ({
       transform: new Transform({
         transform: ${JSON.stringify(object.transform)}
       }),
@@ -17,37 +17,61 @@ function objectToString(object) {
         },
         ` : ""
       }
-    })
+    }),
   `
 }
 
 
-
-function allObjects() {
-  let aObj = `
-    const Camera = {
-      transform: {
-        position: {
-          x: 0,
-          y: 0
-        },
-        rotation: 0,
-        scale: {
-          x: 1,
-          y: 1
-        }
-      }
+const camera = `Camera = {
+  transform: {
+    position: {
+      x: 0,
+      y: 0
+    },
+    rotation: 0,
+    scale: {
+      x: 1,
+      y: 1
     }
+  }
+}`
 
-    const objects = []
+
+
+function allObjects(object) {
+  let aObj = `{
   `
-  for(let o of objects) {
+  for(let o of object) {
     aObj += `
       ${objectToString(o)}
     `
   }
 
+  aObj += "}"
+
   return aObj
+}
+
+
+function allScenes() {
+  let text = `
+    const objects = []
+    const scenes = [
+  `
+  
+  for(let s of scenes) {
+    text += `
+      new Scene(${allObjects(s.objects)}),
+    `
+  }
+
+  text += `
+    ]
+
+    let selectedScene = scenes[0]
+  `
+
+  return text
 }
 
 
@@ -57,15 +81,12 @@ function jsCode() {
     const canvas = document.getElementById("gameCanvas")
     const ctx = canvas.getContext("2d")
 
-    window.addEventListener('beforeunload', (event) => {
-      event.preventDefault()
-      console.log("exit")
-    })
-
     ${fullScreen()}
+    ${safeUnload()}
     ${functions}
     ${classes}
-    ${allObjects()}
+    ${camera}
+    ${allScenes()}
     ${startAndUpdate}
   `
 }

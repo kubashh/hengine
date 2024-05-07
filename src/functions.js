@@ -1,4 +1,4 @@
-function createHtmlElement({name, text, className, style, onclick, id, child, childs, type, onchange, oninput}) {
+function createHtmlElement({name, text, className, style, onclick, id, child, childs, type, onchange, oninput, change, input}) {
   if(!name) {
     name = "div"
   }
@@ -59,6 +59,14 @@ function createHtmlElement({name, text, className, style, onclick, id, child, ch
 
   if(oninput) {
     element.oninput = oninput
+  }
+
+  if(change) {
+    element.change = change
+  }
+
+  if(input) {
+    element.input = input
   }
 
   return element

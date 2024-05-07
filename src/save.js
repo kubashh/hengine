@@ -23,4 +23,6 @@ function save() {
   document.body.appendChild(htmlElement)
   htmlElement.click()
   document.body.removeChild(htmlElement)
+
+  updateTitle()
 }

@@ -1,7 +1,12 @@
 const startAndUpdate = `
   clear()
-  for(let o of objects) {
-    o.start?.()
+
+  selectedScene.load()
+
+  function allStart() {
+    for(let o of objects) {
+      o.start?.()
+    }
   }
 
   timers = {
