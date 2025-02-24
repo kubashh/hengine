@@ -1,5 +1,5 @@
 let editorLoad = false
 
-window.addEventListener("load", function() {
+window.addEventListener("load", () => {
   editorLoad = true
 })

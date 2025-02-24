@@ -7,14 +7,14 @@ const selectedOptions = {
 let selectedField = selectedOptions.HIERARCHY
 
 
-document.querySelector(".hierarchyBox").addEventListener("click", (event) => {
+document.querySelector(".hierarchyBox").addEventListener("click", () => {
   selectedField = selectedOptions.HIERARCHY
 })
 
-document.querySelector(".filesBox").addEventListener("click", (event) => {
+document.querySelector(".filesBox").addEventListener("click", () => {
   selectedField = selectedOptions.FILES
 })
 
-document.querySelector(".inspectorBox").addEventListener("click", (event) => {
+document.querySelector(".inspectorBox").addEventListener("click", () => {
   selectedField = selectedOptions.INSPECTOR
 })

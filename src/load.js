@@ -22,7 +22,7 @@ plikInput.addEventListener("change", function() {
 
 
 function clearData() {
-  for(let key in files) {
+  for(const key in files) {
     delete files[key]
   }
 
@@ -41,7 +41,7 @@ function setData(data) {
     files[key] = data.files[key]
   }
 
-  for(let o of data.objects) {
+  for(const o of data.objects) {
     Obj.toJs(o)
   }
 
@@ -53,7 +53,7 @@ function setData(data) {
 
 
 function firstLoad() {
-  document.getElementById('plikInput').click()
+  document.getElementById("plikInput").click()
 
   newProject()
 }
