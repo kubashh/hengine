@@ -1,20 +1,48 @@
-function createHtmlElement({name = `div`, text = ``, className, style, onclick, id, child, childs, type, onchange, oninput, change, input, ...rest}) {
-  const element = document.createElement(name)
+function createHtmlElement({name, text, className, style, onclick, id, child, childs, type, onchange, oninput, change, input}) {
+  if(!name) {
+    name = "div"
+  }
+  let element = document.createElement(name)
+
+  if(text === undefined) {
+    text = ""
+  }
 
   if(!type) {
-    if(name === `input` || name === `textarea`) {
-      element.type = `text`
-      element.value = text
-    } else {
-      element.textContent = text
+    switch(name) {
+      case "input":
+      case "textarea":
+        element.type = "text"
+        element.value = text
+        break
+      
+      case "":
+        
+        break
+      
+      default:
+        element.textContent = text
+        break
     }
   } else {
     element.type = type
   }
 
+  if(id) {
+    element.id = id
+  }
+
+  if(className) {
+    element.className = className
+  }
+
+  if(style) {
+    element.style = style
+  }
+
   if(onclick) {
     element.onclick = onclick
-    element.style.cursor = `pointer`
+    element.style.cursor = "pointer"
   }
 
   if(child) {
@@ -25,8 +53,20 @@ function createHtmlElement({name = `div`, text = ``, className, style, onclick, 
     }
   }
 
-  for(const key in rest) {
-    element[key] = rest[key]
+  if(onchange) {
+    element.onchange = onchange
+  }
+
+  if(oninput) {
+    element.oninput = oninput
+  }
+
+  if(change) {
+    element.change = change
+  }
+
+  if(input) {
+    element.input = input
   }
 
   return element
@@ -36,20 +76,20 @@ function createHtmlElement({name = `div`, text = ``, className, style, onclick, 
 // create section like sprite or transform
 function createSection(text, properties, removeButtonFunction) {
   let div = createHtmlElement({
-    className: `section`
+    className: "section"
   })
 
-  let rb = createHtmlElement({})
-
+  let rb = createHtmlElement({
+  })
   if(removeButtonFunction) {
     rb = createHtmlElement({
-      text: `Remove`,
+      text: "Remove",
       onclick: removeButtonFunction
     })
   }
 
   div.appendChild(createHtmlElement({
-    className: `headerOfSection`,
+    className: "headerOfSection",
     childs: [
       createHtmlElement({
         text: text,
@@ -75,15 +115,15 @@ function createSection(text, properties, removeButtonFunction) {
 // return div
 function createValueInput(textElement, inputElement) {
   let div = createHtmlElement({
-    className: `valueInput`
+    className: "valueInput"
   })
 
-  textElement.style.margin = `2px`
-  textElement.style.fontSize = `16px`
+  textElement.style.margin = "2px"
+  textElement.style.fontSize = "16px"
 
-  inputElement.style.border = `2px solid black`
-  inputElement.style.padding = `0 0 0 1px`
-  inputElement.style.fontSize = `16px`
+  inputElement.style.border = "2px solid black"
+  inputElement.style.padding = "0 0 0 1px"
+  inputElement.style.fontSize = "16px"
 
   div.appendChild(textElement)
 
@@ -106,7 +146,7 @@ function randInt(min, max) {
 
 
 function deepCopy(object) {
-  if(typeof object !== `object` || object === null) {
+  if(typeof object !== "object" || object === null) {
     return object
   }
 
