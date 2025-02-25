@@ -1,22 +1,22 @@
 function createHtmlElement({name, text, className, style, onclick, id, child, childs, type, onchange, oninput, change, input}) {
   if(!name) {
-    name = "div"
+    name = `div`
   }
   let element = document.createElement(name)
 
   if(text === undefined) {
-    text = ""
+    text = ``
   }
 
   if(!type) {
     switch(name) {
-      case "input":
-      case "textarea":
-        element.type = "text"
+      case `input`:
+      case `textarea`:
+        element.type = `text`
         element.value = text
         break
       
-      case "":
+      case ``:
         
         break
       
@@ -42,7 +42,7 @@ function createHtmlElement({name, text, className, style, onclick, id, child, ch
 
   if(onclick) {
     element.onclick = onclick
-    element.style.cursor = "pointer"
+    element.style.cursor = `pointer`
   }
 
   if(child) {
@@ -76,20 +76,20 @@ function createHtmlElement({name, text, className, style, onclick, id, child, ch
 // create section like sprite or transform
 function createSection(text, properties, removeButtonFunction) {
   let div = createHtmlElement({
-    className: "section"
+    className: `section`
   })
 
   let rb = createHtmlElement({
   })
   if(removeButtonFunction) {
     rb = createHtmlElement({
-      text: "Remove",
+      text: `Remove`,
       onclick: removeButtonFunction
     })
   }
 
   div.appendChild(createHtmlElement({
-    className: "headerOfSection",
+    className: `headerOfSection`,
     childs: [
       createHtmlElement({
         text: text,
@@ -115,15 +115,15 @@ function createSection(text, properties, removeButtonFunction) {
 // return div
 function createValueInput(textElement, inputElement) {
   let div = createHtmlElement({
-    className: "valueInput"
+    className: `valueInput`
   })
 
-  textElement.style.margin = "2px"
-  textElement.style.fontSize = "16px"
+  textElement.style.margin = `2px`
+  textElement.style.fontSize = `16px`
 
-  inputElement.style.border = "2px solid black"
-  inputElement.style.padding = "0 0 0 1px"
-  inputElement.style.fontSize = "16px"
+  inputElement.style.border = `2px solid black`
+  inputElement.style.padding = `0 0 0 1px`
+  inputElement.style.fontSize = `16px`
 
   div.appendChild(textElement)
 
@@ -146,7 +146,7 @@ function randInt(min, max) {
 
 
 function deepCopy(object) {
-  if(typeof object !== "object" || object === null) {
+  if(typeof object !== `object` || object === null) {
     return object
   }
 
