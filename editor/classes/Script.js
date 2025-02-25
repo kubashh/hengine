@@ -1,16 +1,16 @@
 const SCRIPT = {
   script: createSection(
-    "Script",
+    `Script`,
     [
       createHtmlElement({
         childs: [
           createHtmlElement({
-            name: "textarea",
-            id: "scriptInput",
-            style: "height: 300px; width: 100%; color: white;"
+            name: `textarea`,
+            id: `scriptInput`,
+            style: `height: 300px; width: 100%; color: white;`
           }),
           createHtmlElement({
-            text: "Full open",
+            text: `Full open`,
             onclick: TextEditor.show
           })
         ]
@@ -23,37 +23,37 @@ const SCRIPT = {
   ),
   
   addScript: createHtmlElement({
-    text: "Add Script",
-    className: "addNewComponent",
+    text: `Add Script`,
+    className: `addNewComponent`,
     onclick: () => {
       selectedObject.script = defaultScript
-      document.getElementById("scriptInput").value = selectedObject.script
+      document.getElementById(`scriptInput`).value = selectedObject.script
     }
   }),
 
   add(componentDiv, addComponentDiv) {
     componentDiv.appendChild(this.script)
     if(!selectedObject?.script) {
-      this.script.style.display = "none"
+      this.script.style.display = `none`
     }
     addComponentDiv.appendChild(this.addScript)
   },
 
   refresh() {
     if(selectedObject.script) {
-      document.getElementById("scriptInput").value = selectedObject.script
-      this.script.style.display = "block"
-      this.addScript.style.display = "none"
+      document.getElementById(`scriptInput`).value = selectedObject.script
+      this.script.style.display = `block`
+      this.addScript.style.display = `none`
     } else {
-      document.getElementById("scriptInput").value = ""
-      this.script.style.display = "none"
-      this.addScript.style.display = "block"
+      document.getElementById(`scriptInput`).value = ``
+      this.script.style.display = `none`
+      this.addScript.style.display = `block`
     }
   },
 
   update() {
     if(selectedObject.script) {
-      selectedObject.script = document.getElementById("scriptInput").value
+      selectedObject.script = document.getElementById(`scriptInput`).value
     }
   }
 }

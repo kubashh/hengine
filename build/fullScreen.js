@@ -1,8 +1,5 @@
 function fullScreen() {
-  if(!config.fullScreen) {
-    return ""
-  }
-  return `
+  return config.fullScreen ? `
     window.addEventListener("resize", () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
@@ -15,19 +12,16 @@ function fullScreen() {
         console.error("pierdole")
       }
     })
-  `
+  ` : ``
 }
 
 
 function safeUnload() {
-  if(!config.safeUnload) {
-    return ""
-  }
-  return `
+  return config.safeUnload ? `
     window.addEventListener('beforeunload', (event) => {
       event.preventDefault()
       console.log("exit")
     })
-  `
+  ` : ``
 }
 

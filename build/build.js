@@ -8,14 +8,14 @@ function objectToString(object) {
 
       ${object.sprite ? `
         sprite: new Sprite("${object.sprite.color}", ${object.sprite.width}, ${object.sprite.height}),
-        ` : ""
+        ` : ``
       }
 
       ${object.script ? `
         script: {
           ${object.script}
         },
-        ` : ""
+        ` : ``
       }
     }),
   `
@@ -41,15 +41,13 @@ const camera = `Camera = {
 function allObjects(object) {
   let aObj = `{
   `
-  for(let o of object) {
+  for(const o of object) {
     aObj += `
       ${objectToString(o)}
     `
   }
 
-  aObj += "}"
-
-  return aObj
+  return `${aObj}}`
 }
 
 
@@ -59,19 +57,17 @@ function allScenes() {
     const scenes = [
   `
   
-  for(let s of scenes) {
+  for(const s of scenes) {
     text += `
       new Scene(${allObjects(s.objects)}),
     `
   }
 
-  text += `
+  return `${text}
     ]
 
     let selectedScene = scenes[0]
   `
-
-  return text
 }
 
 
@@ -94,14 +90,10 @@ function jsCode() {
 
 
 function buildGame() {
-  let htmlContent = htmlCode()
-
-  let htmlElement = document.createElement('a')
-  htmlElement.href = `data:text/html;charset=utf-8,${encodeURIComponent(htmlContent)}`
+  const htmlElement = document.createElement(`a`)
+  htmlElement.href = `data:text/html;charset=utf-8,${encodeURIComponent(htmlCode())}`
   htmlElement.download = `${config.gameName}.html`
-  htmlElement.style.display = 'none'
+  htmlElement.style.display = `none`
   document.body.appendChild(htmlElement).click()
   document.body.removeChild(htmlElement)
-
-  console.log(htmlContent)
 }

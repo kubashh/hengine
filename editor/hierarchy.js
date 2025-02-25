@@ -1,8 +1,8 @@
-const hierarchy = document.getElementById("hierarchy")
+const hierarchy = document.getElementById(`hierarchy`)
 
 
 function refreshHierarchy() {
-  hierarchy.innerHTML = ""
+  hierarchy.innerHTML = ``
 
   for(let object of objects) {
     hierarchy.appendChild(createElement(object))
@@ -21,14 +21,14 @@ function createElement(object) {
   })
   div.appendChild(createHtmlElement({
     text: object.name,
-    className: "tab",
+    className: `tab`,
     onclick: () => {
       refreshInspector(object)
     }
   }))
 
   if(object == selectedObject) {
-    div.style.color = "yellow"
+    div.style.color = `yellow`
   }
 
   if(object.children && object.children.length > 0) {

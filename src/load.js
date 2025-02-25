@@ -1,6 +1,6 @@
 const plikInput = document.getElementById('plikInput')
 
-plikInput.addEventListener("change", function() {
+plikInput.addEventListener(`change`, function() {
   const file = this.files[0]
   const reader = new FileReader()
 
@@ -53,11 +53,11 @@ function setData(data) {
 
 
 function firstLoad() {
-  document.getElementById("plikInput").click()
+  document.getElementById(`plikInput`).click()
 
   newProject()
 }
 
 function newProject() {
-  document.getElementById("popup-load").remove()
+  document.getElementById(`popup-load`).remove()
 }

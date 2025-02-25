@@ -1,4 +1,4 @@
-const inspector = document.getElementById("inspector")
+const inspector = document.getElementById(`inspector`)
 
 let selectedObject = undefined
 
@@ -7,7 +7,7 @@ let inInspector = true
 
 
 function cleanInspector() {
-  inspector.innerHTML = ""
+  inspector.innerHTML = ``
 }
 
 
@@ -25,11 +25,11 @@ function deepRefresh() {
   })
 
   const addComponentDiv = createHtmlElement({
-    style: "margin: 2px;",
+    style: `margin: 2px;`,
     childs: [
       createHtmlElement({
-        style: "tab",
-        text: "Add New Component"
+        style: `tab`,
+        text: `Add New Component`
       })
     ]
   })
@@ -71,9 +71,9 @@ function refreshInspector(object) {
 }
 
 
-document.addEventListener("click", (event) => {
+document.addEventListener(`click`, () => {
   if(inInspector) {
-    //console.log("Kliknięto element:", event.target)
+    //console.log(`Kliknięto element:`, event.target)
     refreshInspector()
   }
 })

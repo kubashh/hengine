@@ -25,20 +25,20 @@ function copyElement() {
 document.addEventListener('keydown', (event) => {
   if(event.ctrlKey) {
     switch(event.key) {
-      case "s":
+      case `s`:
         event.preventDefault()
         save()
         break
-      case "d":
+      case `d`:
         event.preventDefault()
         copyElement()
         refreshHierarchy()
         break
-      case "q":
+      case `q`:
         event.preventDefault()
         startTestGame()
         break
-      case "y":
+      case `y`:
         event.preventDefault()
         CONFIG.show()
         break

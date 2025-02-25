@@ -62,9 +62,9 @@ class myImage {
 
 function imagesToJs(file = files) {
   for(let key in file) {
-    if(file[key].type == "image") {
+    if(file[key].type == `image`) {
       file[key] = myImage.toJs(file[key].image)
-    } else if(file[key].type == "folder") {
+    } else if(file[key].type == `folder`) {
       imagesToJs(file[key])
     }
   }

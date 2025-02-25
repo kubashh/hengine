@@ -17,7 +17,7 @@ class Obj {
     if(name) {
       this.name = findName(name)
     } else {
-      this.name = findName("NewObject")
+      this.name = findName(`NewObject`)
     }
 
     if(transform) {

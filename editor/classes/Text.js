@@ -1,28 +1,28 @@
 const TEXT = {
-  defaultText: "Text",
+  defaultText: `Text`,
 
 
   text: createSection(
-    "Text",
+    `Text`,
     [
       createValueInput(
         createHtmlElement({
-          text: "Color"
+          text: `Color`
         }),
         createHtmlElement({
-          name: "input",
-          id: "colorTextInput",
-          text: "Color"
+          name: `input`,
+          id: `colorTextInput`,
+          text: `Color`
         })
       ),
       createValueInput(
         createHtmlElement({
-          text: "Text"
+          text: `Text`
         }),
         createHtmlElement({
-          name: "input",
-          id: "textInput",
-          text: "Text"
+          name: `input`,
+          id: `textInput`,
+          text: `Text`
         })
       )
     ],
@@ -33,8 +33,8 @@ const TEXT = {
   ),
   
   addText: createHtmlElement({
-    text: "Add Text",
-    className: "addNewComponent",
+    text: `Add Text`,
+    className: `addNewComponent`,
     onclick: () => {
       TEXT.set()
     }
@@ -43,9 +43,9 @@ const TEXT = {
   add(componentDiv, addComponentDiv) {
     componentDiv.appendChild(this.text)
     if(!selectedObject?.text) {
-      this.text.style.display = "none"
+      this.text.style.display = `none`
     } else {
-      this.addText.style.display = "none"
+      this.addText.style.display = `none`
     }
     
     addComponentDiv.appendChild(this.addText)
@@ -53,28 +53,28 @@ const TEXT = {
 
   refresh() {
     if(selectedObject.text) {
-      document.getElementById("colorTextInput").value = selectedObject.text.color
-      document.getElementById("textInput").value = selectedObject.text.text
-      this.text.style.display = "block"
-      this.addText.style.display = "none"
+      document.getElementById(`colorTextInput`).value = selectedObject.text.color
+      document.getElementById(`textInput`).value = selectedObject.text.text
+      this.text.style.display = `block`
+      this.addText.style.display = `none`
     } else {
-      document.getElementById("colorTextInput").value = "blue"
-      document.getElementById("textInput").value = this.defaultText
-      this.text.style.display = "none"
-      this.addText.style.display = "block"
+      document.getElementById(`colorTextInput`).value = `blue`
+      document.getElementById(`textInput`).value = this.defaultText
+      this.text.style.display = `none`
+      this.addText.style.display = `block`
     }
   },
 
   update() {
     if(selectedObject.text) {
-      selectedObject.text.color = document.getElementById("colorTextInput").value
-      selectedObject.text.text = document.getElementById("textInput").value
+      selectedObject.text.color = document.getElementById(`colorTextInput`).value
+      selectedObject.text.text = document.getElementById(`textInput`).value
     }
   },
 
   set() {
     selectedObject.text = {
-      color: "blue",
+      color: `blue`,
       text: this.defaultText,
       width: 1,
       height: 1,
