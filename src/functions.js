@@ -1,12 +1,5 @@
-function createHtmlElement({name, text, className, style, onclick, id, child, childs, type, onchange, oninput, change, input}) {
-  if(!name) {
-    name = `div`
-  }
-  let element = document.createElement(name)
-
-  if(text === undefined) {
-    text = ``
-  }
+function createHtmlElement({name = `div`, text = ``, className, style, onclick, id, child, childs, type, onchange, oninput, change, input}) {
+  const element = document.createElement(name)
 
   if(!type) {
     switch(name) {
@@ -17,7 +10,6 @@ function createHtmlElement({name, text, className, style, onclick, id, child, ch
         break
       
       case ``:
-        
         break
       
       default:
@@ -75,12 +67,12 @@ function createHtmlElement({name, text, className, style, onclick, id, child, ch
 
 // create section like sprite or transform
 function createSection(text, properties, removeButtonFunction) {
-  let div = createHtmlElement({
+  const div = createHtmlElement({
     className: `section`
   })
 
-  let rb = createHtmlElement({
-  })
+  let rb = createHtmlElement({})
+
   if(removeButtonFunction) {
     rb = createHtmlElement({
       text: `Remove`,
@@ -104,7 +96,7 @@ function createSection(text, properties, removeButtonFunction) {
     ]
   }))
 
-  for(let property of properties) {
+  for(const property of properties) {
     div.appendChild(property)
   }
 
@@ -114,7 +106,7 @@ function createSection(text, properties, removeButtonFunction) {
 
 // return div
 function createValueInput(textElement, inputElement) {
-  let div = createHtmlElement({
+  const div = createHtmlElement({
     className: `valueInput`
   })
 
