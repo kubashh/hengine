@@ -50,7 +50,7 @@ class Obj {
   }
 
   toJson() {
-    let object = {
+    const object = {
       name: this.name,
       transform: this.transform
     }
@@ -71,7 +71,7 @@ class Obj {
   }
 
   static toJs(object) {
-    let jsObject = {
+    const jsObject = {
       name: object.name,
       transform: object.transform
     }

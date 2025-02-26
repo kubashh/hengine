@@ -57,7 +57,7 @@ const files = {
 
 const FILES = {
   next(bool = true) {
-    let obiekt = getCurrentFolder()
+    const obiekt = getCurrentFolder()
     const keys = Object.keys(obiekt).filter(item => item !== `type`)
     let indexNow = keys.indexOf(selectedFileName)
     if(bool) {
@@ -127,7 +127,7 @@ FILES.refreshSelectedFile()
 
 
 function newFile(name = `NewFile`) {
-  let file = name
+  const file = name
   //files.push(file)
   selectedFile = file
 }
@@ -139,8 +139,6 @@ function refreshFiles() {
   allFileStructureToHtml()
 
   addFileInfo()
-
-  console.log(selectedFile)
 }
 
 
@@ -263,7 +261,7 @@ function addFileInfo() {
 
 
 function getCurrentFolder() {
-  let element = files
+  const element = files
   for(const f of selectedFilePath) {
     if(f != `files`) {
       element = element[f]
@@ -314,7 +312,7 @@ function findFileByName(name, folder = files) {
 
 function copyCurrentPath() {
   let path = ``
-  for(let p of selectedFilePath) {
+  for(const p of selectedFilePath) {
     path += p + `.`
   }
   path += selectedFileName
@@ -334,5 +332,5 @@ refreshFiles()
 
 
 function checkString(string) {
-  return string.replace(/^\d+|\W+/g, '')
+  return string.replace(/^\d+|\W+/g, ``)
 }

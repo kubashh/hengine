@@ -40,7 +40,7 @@ function createHtmlElement({name = `div`, text = ``, className, style, onclick, 
   if(child) {
     element.appendChild(child)
   } else if(childs) {
-    for(let child of childs) {
+    for(const child of childs) {
       element.appendChild(child)
     }
   }
@@ -71,15 +71,6 @@ function createSection(text, properties, removeButtonFunction) {
     className: `section`
   })
 
-  let rb = createHtmlElement({})
-
-  if(removeButtonFunction) {
-    rb = createHtmlElement({
-      text: `Remove`,
-      onclick: removeButtonFunction
-    })
-  }
-
   div.appendChild(createHtmlElement({
     className: `headerOfSection`,
     childs: [
@@ -92,7 +83,10 @@ function createSection(text, properties, removeButtonFunction) {
           padding: 2px;
         `
       }),
-      rb
+      createHtmlElement(removeButtonFunction ? {
+        text: `Remove`,
+        onclick: removeButtonFunction
+      } : {})
     ]
   }))
 
@@ -144,7 +138,7 @@ function deepCopy(object) {
 
   const newObject = Array.isArray(object) ? [] : {}
 
-  for(let key in object) {
+  for(const key in object) {
     newObject[key] = deepCopy(object[key])
   }
 

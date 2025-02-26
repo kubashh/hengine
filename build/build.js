@@ -1,25 +1,22 @@
-function objectToString(object) {
-  return `
-    ${object.name}: new Obj ({
-      transform: new Transform({
-        transform: ${JSON.stringify(object.transform)}
-      }),
-
-
-      ${object.sprite ? `
-        sprite: new Sprite("${object.sprite.color}", ${object.sprite.width}, ${object.sprite.height}),
-        ` : ``
-      }
-
-      ${object.script ? `
-        script: {
-          ${object.script}
-        },
-        ` : ``
-      }
+const objectToString = (object) => `
+  ${object.name}: new Obj ({
+    transform: new Transform({
+      transform: ${JSON.stringify(object.transform)}
     }),
-  `
-}
+
+    ${object.sprite ? `
+      sprite: new Sprite("${object.sprite.color}", ${object.sprite.width}, ${object.sprite.height}),
+      ` : ``
+    }
+
+    ${object.script ? `
+      script: {
+        ${object.script}
+      },
+      ` : ``
+    }
+  }),
+`
 
 
 const camera = `Camera = {
@@ -38,20 +35,14 @@ const camera = `Camera = {
 
 
 
-function allObjects(object) {
-  let aObj = `{
-  `
-  for(const o of object) {
-    aObj += `
-      ${objectToString(o)}
-    `
-  }
-
-  return `${aObj}}`
-}
+const allObjects = (object) => `
+  ${object.reduce((last, o) => `${last}
+    ${objectToString(o)}
+  `, `{
+`) }}`
 
 
-function allScenes() {
+const allScenes = () => {
   let text = `
     const objects = []
     const scenes = [
@@ -72,28 +63,24 @@ function allScenes() {
 
 
 
-function jsCode() {
-  return `
-    const canvas = document.getElementById("gameCanvas")
-    const ctx = canvas.getContext("2d")
+const jsCode = () => `
+  const canvas = document.getElementById("gameCanvas")
+  const ctx = canvas.getContext("2d")
 
-    ${fullScreen()}
-    ${safeUnload()}
-    ${functions}
-    ${classes}
-    ${camera}
-    ${allScenes()}
-    ${startAndUpdate}
-  `
-}
+  ${fullScreen()}
+  ${safeUnload()}
+  ${functions}
+  ${classes}
+  ${camera}
+  ${allScenes()}
+  ${startAndUpdate}
+`
 
 
 
-function buildGame() {
+const buildGame = () => {
   const htmlElement = document.createElement(`a`)
   htmlElement.href = `data:text/html;charset=utf-8,${encodeURIComponent(htmlCode())}`
   htmlElement.download = `${config.gameName}.html`
-  htmlElement.style.display = `none`
-  document.body.appendChild(htmlElement).click()
-  document.body.removeChild(htmlElement)
+  htmlElement.click()
 }

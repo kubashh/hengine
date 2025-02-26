@@ -4,7 +4,7 @@ const hierarchy = document.getElementById(`hierarchy`)
 function refreshHierarchy() {
   hierarchy.innerHTML = ``
 
-  for(let object of objects) {
+  for(const object of objects) {
     hierarchy.appendChild(createElement(object))
   }
 }
@@ -17,8 +17,8 @@ function createNewObject() {
 
 
 function createElement(object) {
-  let div = createHtmlElement({
-  })
+  const div = createHtmlElement({})
+
   div.appendChild(createHtmlElement({
     text: object.name,
     className: `tab`,
@@ -32,7 +32,7 @@ function createElement(object) {
   }
 
   if(object.children && object.children.length > 0) {
-    for(let child of object.children) {
+    for(const child of object.children) {
       div.appendChild(createElement(child))
     }
   }

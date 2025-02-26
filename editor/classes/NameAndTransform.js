@@ -69,7 +69,7 @@ const TRANSFORM = {
   }),
 
   add(componentDiv) {
-    let div1 = createHtmlElement({
+    const div1 = createHtmlElement({
       childs: [
         createValueInput(
           createHtmlElement({
@@ -85,9 +85,9 @@ const TRANSFORM = {
         )
       ]
     })
-  
-  
-    let div2 = createHtmlElement({
+
+
+    const div2 = createHtmlElement({
     child: createValueInput(
       createHtmlElement({
         text: `z`
@@ -96,7 +96,7 @@ const TRANSFORM = {
     )})
   
   
-    let div3 = createHtmlElement({
+    const div3 = createHtmlElement({
       childs: [
         createValueInput(
           createHtmlElement({
@@ -112,7 +112,7 @@ const TRANSFORM = {
         )
       ]
     })
-  
+
     // transform
     componentDiv.appendChild(createSection(
       `Transform`,
@@ -148,32 +148,10 @@ const TRANSFORM = {
   },
 
   update() {
-    let positionX = parseFloat(this.positionX.value)
-    let positionY = parseFloat(this.positionY.value)
-    let rotation = parseFloat(this.rotation.value)
-    let scaleX = parseFloat(this.scaleX.value)
-    let scaleY = parseFloat(this.scaleY.value)
-
-    if(isNaN(positionX)) {
-      positionX = 0
-    }
-    if(isNaN(positionY)) {
-      positionY = 0
-    }
-    if(isNaN(rotation)) {
-      rotation = 0
-    }
-    if(isNaN(scaleX)) {
-      scaleX = 0
-    }
-    if(isNaN(scaleY)) {
-      scaleY = 0
-    }
-
-    selectedObject.transform.position.x = positionX
-    selectedObject.transform.position.y = positionY
-    selectedObject.transform.rotation = rotation
-    selectedObject.transform.scale.x = scaleX
-    selectedObject.transform.scale.y = scaleY
+    selectedObject.transform.position.x = Number(this.positionX.value) || 0
+    selectedObject.transform.position.y = Number(this.positionY.value) || 0
+    selectedObject.transform.rotation = Number(this.rotation.value) || 0
+    selectedObject.transform.scale.x = Number(this.scaleX.value) || 0
+    selectedObject.transform.scale.y = Number(this.scaleY.value) || 0
   }
 }

@@ -1,25 +1,22 @@
 function save() {
-  let objectsJs = []
+  const objectsJs = []
   for(const o of objects) {
     objectsJs.push(o.toJson())
   }
 
   config.version++
 
-  const content = {
+  const jsonData = JSON.stringify({
     config: config,
     files: files,
     objects: objectsJs
-  }
-  console.log(objectsJs)
-  const jsonData = JSON.stringify(content) // Konwersja obiektu na JSON
-  console.log(jsonData)
+  }) // Konwersja obiektu na JSON
 
 
-  const htmlElement = document.createElement('a')
-  htmlElement.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(jsonData) // Ustawienie typu i kodowania
+  const htmlElement = document.createElement(`a`)
+  htmlElement.href = `data:application/json;charset=utf-8,${encodeURIComponent(jsonData)}`
   htmlElement.download = `${config.gameName}${config.version}.json`
-  htmlElement.style.display = 'none'
+  htmlElement.style.display = `none`
   document.body.appendChild(htmlElement)
   htmlElement.click()
   document.body.removeChild(htmlElement)

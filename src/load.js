@@ -1,19 +1,12 @@
-const plikInput = document.getElementById('plikInput')
+const plikInput = document.getElementById(`plikInput`)
 
 plikInput.addEventListener(`change`, function() {
   const file = this.files[0]
   const reader = new FileReader()
 
-  reader.onload = (event) => {
-    const jsonFile = event.target.result
-    try {
-      const data = JSON.parse(jsonFile)
-      console.log(data)
-
-      setData(data)
-    } catch (error) {
-      console.error('Błąd parsowania JSON:', error)
-    }
+  reader.onload = ({ target }) => {
+    const jsonFile = target.result
+    setData(JSON.parse(jsonFile))
   }
 
   reader.readAsText(file)

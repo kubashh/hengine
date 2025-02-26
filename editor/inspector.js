@@ -73,7 +73,6 @@ function refreshInspector(object) {
 
 document.addEventListener(`click`, () => {
   if(inInspector) {
-    //console.log(`Kliknięto element:`, event.target)
     refreshInspector()
   }
 })

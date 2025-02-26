@@ -1,5 +1,5 @@
 function copyElement() {
-  let object = new Obj({})
+  const object = new Obj({})
   object.transform = deepCopy(selectedObject.transform)
   if(selectedObject.sprite) {
     new Sprite({
@@ -22,7 +22,7 @@ function copyElement() {
 
 
 // Przypisanie funkcji do zdarzenia keydown
-document.addEventListener('keydown', (event) => {
+document.addEventListener(`keydown`, (event) => {
   if(event.ctrlKey) {
     switch(event.key) {
       case `s`:

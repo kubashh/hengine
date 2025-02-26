@@ -4,7 +4,7 @@ const startAndUpdate = `
   selectedScene.load()
 
   function allStart() {
-    for(let o of objects) {
+    for(const o of objects) {
       o.start?.()
     }
   }
@@ -19,13 +19,13 @@ const startAndUpdate = `
 
   function update() {
     let gravityTimer = now()
-    for(let o of objects) {
+    for(const o of objects) {
       o.gravity?.update()
     }
     gravityTimer = now() - gravityTimer
 
     let userTimer = now()
-    for(let o of objects) {
+    for(const o of objects) {
       o.update?.()
     }
     userTimer = now() - userTimer
@@ -50,18 +50,18 @@ const startAndUpdate = `
     clear()
 
     let spriteTimer = now()
-    for(let o of objects) {
+    for(const o of objects) {
       o.sprite?.render(o.transform)
     }
     spriteTimer = now() - spriteTimer
     
     let userTimer = now()
-    for(let o of objects) {
+    for(const o of objects) {
       o.render?.()
     }
     userTimer = now() - userTimer
 
-    let allTimer = spriteTimer + userTimer
+    const allTimer = spriteTimer + userTimer
 
 
     let userPercent = 0
@@ -74,8 +74,8 @@ const startAndUpdate = `
     }
 
 
-    let h = 16
-    let x = 200
+    const h = 16
+    const x = 200
 
     drawText(objects.length + " objects " + updatesLegit + "ups " + framesLegit + " fps", canvas.width - 2, 2, "white", h, "right", "top")
 
