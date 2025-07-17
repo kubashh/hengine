@@ -1,4 +1,6 @@
-const fullScreen = () => config.fullScreen ? `
+const fullScreen = () =>
+  config.fullScreen
+    ? `
   window.addEventListener("resize", () => {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
@@ -11,13 +13,15 @@ const fullScreen = () => config.fullScreen ? `
       console.error("pierdole")
     }
   })
-` : ``
+`
+    : ``
 
-
-const safeUnload = () => config.safeUnload ? `
+const safeUnload = () =>
+  config.safeUnload
+    ? `
   window.addEventListener("beforeunload", (event) => {
     event.preventDefault()
     console.log("exit")
   })
-` : ``
-
+`
+    : ``

@@ -29,7 +29,9 @@ function htmlCode() {
       </style>
     </head>
     <body>
-      <canvas id="gameCanvas" width="${config.screenWidth}" height="${config.screenHeight}"></canvas>
+      <canvas id="gameCanvas" width="${config.screenWidth}" height="${
+    config.screenHeight
+  }"></canvas>
 
       <script>
         ${jsCode()}

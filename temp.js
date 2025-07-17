@@ -1,5 +1,5 @@
-const canvas = document.getElementById('canvas')
-const ctx = canvas.getContext('2d')
+const canvas = document.getElementById("canvas")
+const ctx = canvas.getContext("2d")
 ctx.fillStyle = "black"
 ctx.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -8,14 +8,14 @@ class myImage {
     this.image = image
     this.position = {
       x: x,
-      y: y
+      y: y,
     }
 
     this.rotation = rotation
 
     this.rectTransform = {
       x: rx,
-      y: ry
+      y: ry,
     }
 
     images.push(this)
@@ -35,11 +35,11 @@ class myImage {
       image: {
         src: imageJS.image.src,
         width: imageJS.image.width,
-        height: imageJS.image.height
+        height: imageJS.image.height,
       },
       position: imageJS.position,
       rotation: imageJS.rotation,
-      rectTransform: imageJS.rectTransform
+      rectTransform: imageJS.rectTransform,
     })
   }
 
@@ -48,7 +48,7 @@ class myImage {
       image: objectToImage(imageJson.image),
       position: imageJson.position,
       rotation: imageJson.rotation,
-      rectTransform: imageJson.rectTransform
+      rectTransform: imageJson.rectTransform,
     })
   }
 }
@@ -58,10 +58,10 @@ const images = []
 
 function drawImages() {
   console.time()
-  for(let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 10000; i++) {
     ctx.fillStyle = "black"
     ctx.fillRect(0, 0, canvas.width, canvas.height)
-    for(let image of images) {
+    for (let image of images) {
       image.draw()
     }
   }
@@ -80,7 +80,7 @@ function addNewImage(image) {
   let obiektObrazu = {
     src: image.src,
     width: image.width,
-    height: image.height
+    height: image.height,
   }
   jsImages.push(obiektObrazu)
   const myImageFile = new myImage(image)
@@ -92,7 +92,7 @@ function addNewImage(image) {
 function handleFileSelect(event) {
   let file = event.target.files[0]
   let reader = new FileReader()
-  reader.onload = function(e) {
+  reader.onload = function (e) {
     let obraz = new Image()
     obraz.onload = () => {
       addNewImage(obraz)
@@ -102,4 +102,6 @@ function handleFileSelect(event) {
   reader.readAsDataURL(file)
 }
 
-document.getElementById('wybierzObraz').addEventListener('change', handleFileSelect, false)
+document
+  .getElementById("wybierzObraz")
+  .addEventListener("change", handleFileSelect, false)

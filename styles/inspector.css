@@ -5,16 +5,12 @@
   height: 100vh;
 }
 
-
 #inspector {
   height: 100%;
   padding-left: 6px;
   overflow-x: hidden;
   overflow-y: scroll;
 }
-
-
-
 
 .inspectorContainer {
   display: flex;
@@ -33,7 +29,6 @@
   flex-direction: row;
   margin-bottom: 8px;
 }
-
 
 .section {
   padding-bottom: 8px;

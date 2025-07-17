@@ -2,22 +2,19 @@ class TextEditor {
   static textBox = createHtmlElement({
     name: `textarea`,
     text: `text`,
-    className: `textEditorTextarea`
+    className: `textEditorTextarea`,
   })
 
   static exitButton = createHtmlElement({
     name: `a`,
     text: `Exit`,
     className: `textEditorExitButton`,
-    onclick: TextEditor.hide
+    onclick: TextEditor.hide,
   })
 
   static div = createHtmlElement({
     className: `textEditor`,
-    childs: [
-      TextEditor.textBox,
-      TextEditor.exitButton
-    ]
+    childs: [TextEditor.textBox, TextEditor.exitButton],
   })
 
   static show() {

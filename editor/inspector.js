@@ -4,36 +4,29 @@ let selectedObject = undefined
 
 let inInspector = true
 
-
-
 function cleanInspector() {
   inspector.innerHTML = ``
 }
-
-
-
 
 function deepRefresh() {
   inInspector = true
   cleanInspector()
 
-  if(!selectedObject) {
+  if (!selectedObject) {
     return
   }
 
-  const componentDiv = createHtmlElement({
-  })
+  const componentDiv = createHtmlElement({})
 
   const addComponentDiv = createHtmlElement({
     style: `margin: 2px;`,
     childs: [
       createHtmlElement({
         style: `tab`,
-        text: `Add New Component`
-      })
-    ]
+        text: `Add New Component`,
+      }),
+    ],
   })
-
 
   NAME.add(componentDiv)
   TRANSFORM.add(componentDiv)
@@ -41,23 +34,19 @@ function deepRefresh() {
   SCRIPT.add(componentDiv, addComponentDiv)
   TEXT.add(componentDiv, addComponentDiv)
 
-
   inspector.appendChild(componentDiv)
   inspector.appendChild(addComponentDiv)
 }
-
-
-
 
 function refreshInspector(object) {
   inInspector = true
   inWhat = 0
   updateValue()
-  if(object) {
+  if (object) {
     selectedObject = object
     deepRefresh()
   }
-  if(!selectedObject) {
+  if (!selectedObject) {
     return
   }
 
@@ -70,16 +59,14 @@ function refreshInspector(object) {
   refreshHierarchy()
 }
 
-
 document.addEventListener(`click`, () => {
-  if(inInspector) {
+  if (inInspector) {
     refreshInspector()
   }
 })
 
-
 function updateValue() {
-  if(!selectedObject) {
+  if (!selectedObject) {
     return
   }
 
@@ -90,11 +77,10 @@ function updateValue() {
   TEXT.update()
 }
 
-
 function deleteSelectedObject() {
-  if(selectedObject) {
+  if (selectedObject) {
     objects.splice(objects.indexOf(selectedObject), 1)
-    if(objects.length == 0) {
+    if (objects.length == 0) {
       selectedObject = new Obj({})
     } else {
       selectedObject = objects[0]
@@ -105,6 +91,5 @@ function deleteSelectedObject() {
     console.error(objects)
   }
 }
-
 
 deepRefresh()

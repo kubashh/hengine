@@ -1,6 +1,6 @@
 const plikInput = document.getElementById(`plikInput`)
 
-plikInput.addEventListener(`change`, function() {
+plikInput.addEventListener(`change`, function () {
   const file = this.files[0]
   const reader = new FileReader()
 
@@ -12,29 +12,26 @@ plikInput.addEventListener(`change`, function() {
   reader.readAsText(file)
 })
 
-
-
 function clearData() {
-  for(const key in files) {
+  for (const key in files) {
     delete files[key]
   }
 
   objects.length = 0
 }
 
-
 function setData(data) {
   clearData()
 
-  for(const key in data.config) {
+  for (const key in data.config) {
     config[key] = data.config[key]
   }
 
-  for(const key in data.files) {
+  for (const key in data.files) {
     files[key] = data.files[key]
   }
 
-  for(const o of data.objects) {
+  for (const o of data.objects) {
     Obj.toJs(o)
   }
 
@@ -43,7 +40,6 @@ function setData(data) {
   refreshFiles()
   refreshInspector(objects[0])
 }
-
 
 function firstLoad() {
   document.getElementById(`plikInput`).click()

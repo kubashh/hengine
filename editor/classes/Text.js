@@ -1,59 +1,59 @@
 const TEXT = {
   defaultText: `Text`,
 
-
   text: createSection(
     `Text`,
     [
       createValueInput(
         createHtmlElement({
-          text: `Color`
+          text: `Color`,
         }),
         createHtmlElement({
           name: `input`,
           id: `colorTextInput`,
-          text: `Color`
+          text: `Color`,
         })
       ),
       createValueInput(
         createHtmlElement({
-          text: `Text`
+          text: `Text`,
         }),
         createHtmlElement({
           name: `input`,
           id: `textInput`,
-          text: `Text`
+          text: `Text`,
         })
-      )
+      ),
     ],
     () => {
       delete selectedObject.text
       refreshInspector()
     }
   ),
-  
+
   addText: createHtmlElement({
     text: `Add Text`,
     className: `addNewComponent`,
     onclick: () => {
       TEXT.set()
-    }
+    },
   }),
 
   add(componentDiv, addComponentDiv) {
     componentDiv.appendChild(this.text)
-    if(!selectedObject?.text) {
+    if (!selectedObject?.text) {
       this.text.style.display = `none`
     } else {
       this.addText.style.display = `none`
     }
-    
+
     addComponentDiv.appendChild(this.addText)
   },
 
   refresh() {
-    if(selectedObject.text) {
-      document.getElementById(`colorTextInput`).value = selectedObject.text.color
+    if (selectedObject.text) {
+      document.getElementById(`colorTextInput`).value =
+        selectedObject.text.color
       document.getElementById(`textInput`).value = selectedObject.text.text
       this.text.style.display = `block`
       this.addText.style.display = `none`
@@ -66,8 +66,9 @@ const TEXT = {
   },
 
   update() {
-    if(selectedObject.text) {
-      selectedObject.text.color = document.getElementById(`colorTextInput`).value
+    if (selectedObject.text) {
+      selectedObject.text.color =
+        document.getElementById(`colorTextInput`).value
       selectedObject.text.text = document.getElementById(`textInput`).value
     }
   },
@@ -81,8 +82,8 @@ const TEXT = {
       size: 30,
       rectTransform: {
         x: 0,
-        y: 0
-      }
+        y: 0,
+      },
     }
-  }
+  },
 }

@@ -1,11 +1,10 @@
 const selectedOptions = {
   HIERARCHY: 0,
   FILES: 1,
-  INSPECTOR: 2
+  INSPECTOR: 2,
 }
 
 let selectedField = selectedOptions.HIERARCHY
-
 
 document.querySelector(`.hierarchyBox`).addEventListener(`click`, () => {
   selectedField = selectedOptions.HIERARCHY

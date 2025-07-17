@@ -1,46 +1,45 @@
 function findName(name) {
-  if(!findElementByName(name)) {
+  if (!findElementByName(name)) {
     return name
   }
 
   let help = 0
-  while(findElementByName(name + help.toString())) {
+  while (findElementByName(name + help.toString())) {
     help++
   }
 
   return name + help.toString()
 }
 
-
 class Obj {
-  constructor({name, transform, script, sprite}) {
-    if(name) {
+  constructor({ name, transform, script, sprite }) {
+    if (name) {
       this.name = findName(name)
     } else {
       this.name = findName(`NewObject`)
     }
 
-    if(transform) {
+    if (transform) {
       this.transform = transform
     } else {
       this.transform = {
         position: {
           x: 0,
-          y: 0
+          y: 0,
         },
         rotation: 0,
         scale: {
           x: 1,
-          y: 1
-        }
+          y: 1,
+        },
       }
     }
 
-    if(sprite) {
+    if (sprite) {
       this.sprite = sprite
     }
 
-    if(script) {
+    if (script) {
       this.script = script
     }
 
@@ -52,18 +51,18 @@ class Obj {
   toJson() {
     const object = {
       name: this.name,
-      transform: this.transform
+      transform: this.transform,
     }
 
-    if(this.sprite) {
+    if (this.sprite) {
       object.sprite = this.sprite
     }
 
-    if(this.script) {
+    if (this.script) {
       object.script = this.script
     }
 
-    if(this.text) {
+    if (this.text) {
       object.text = this.text
     }
 
@@ -73,18 +72,18 @@ class Obj {
   static toJs(object) {
     const jsObject = {
       name: object.name,
-      transform: object.transform
+      transform: object.transform,
     }
 
-    if(object.sprite) {
+    if (object.sprite) {
       jsObject.sprite = object.sprite
     }
 
-    if(object.script) {
+    if (object.script) {
       jsObject.script = object.script
     }
 
-    if(object.text) {
+    if (object.text) {
       jsObject.text = object.text
     }
 
