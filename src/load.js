@@ -5,17 +5,14 @@ plikInput.addEventListener(`change`, function () {
   const reader = new FileReader()
 
   reader.onload = ({ target }) => {
-    const jsonFile = target.result
-    setData(JSON.parse(jsonFile))
+    setData(JSON.parse(target.result))
   }
 
   reader.readAsText(file)
 })
 
 function clearData() {
-  for (const key in files) {
-    delete files[key]
-  }
+  for (const key in files) delete files[key]
 
   objects.length = 0
 }
@@ -23,17 +20,9 @@ function clearData() {
 function setData(data) {
   clearData()
 
-  for (const key in data.config) {
-    config[key] = data.config[key]
-  }
-
-  for (const key in data.files) {
-    files[key] = data.files[key]
-  }
-
-  for (const o of data.objects) {
-    Obj.toJs(o)
-  }
+  for (const key in data.config) config[key] = data.config[key]
+  for (const key in data.files) files[key] = data.files[key]
+  for (const o of data.objects) Obj.toJs(o)
 
   updateTitle()
 

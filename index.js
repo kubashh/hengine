@@ -14,7 +14,7 @@ function saveScene() {
 
 /*const Camera = {
   id: setId(),
-  name: "Camera",
+  name: `Camera`,
   transform: {
     position: {
       x: 0,
@@ -48,4 +48,4 @@ refreshInspector(new Obj({ script: defaultScript }))
 
 saveScene()
 
-document.addEventListener("click", saveScene)
+document.addEventListener(`click`, saveScene)

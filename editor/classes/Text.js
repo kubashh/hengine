@@ -5,20 +5,20 @@ const TEXT = {
     `Text`,
     [
       createValueInput(
-        createHtmlElement({
+        createElement({
           text: `Color`,
         }),
-        createHtmlElement({
+        createElement({
           name: `input`,
           id: `colorTextInput`,
           text: `Color`,
         })
       ),
       createValueInput(
-        createHtmlElement({
+        createElement({
           text: `Text`,
         }),
-        createHtmlElement({
+        createElement({
           name: `input`,
           id: `textInput`,
           text: `Text`,
@@ -31,7 +31,7 @@ const TEXT = {
     }
   ),
 
-  addText: createHtmlElement({
+  addText: createElement({
     text: `Add Text`,
     className: `addNewComponent`,
     onclick: () => {

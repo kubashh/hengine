@@ -1,22 +1,16 @@
-const canvas = document.getElementById("canvas")
-const ctx = canvas.getContext("2d")
-ctx.fillStyle = "black"
+const canvas = document.getElementById(`canvas`)
+const ctx = canvas.getContext(`2d`)
+ctx.fillStyle = `black`
 ctx.fillRect(0, 0, canvas.width, canvas.height)
 
 class myImage {
   constructor(image, x = 0, y = 0, rx = 0, ry = 0, rotation = 0) {
     this.image = image
-    this.position = {
-      x: x,
-      y: y,
-    }
+    this.position = { x, y }
 
     this.rotation = rotation
 
-    this.rectTransform = {
-      x: rx,
-      y: ry,
-    }
+    this.rectTransform = { x: rx, y: ry }
 
     images.push(this)
   }
@@ -59,7 +53,7 @@ const images = []
 function drawImages() {
   console.time()
   for (let i = 0; i < 10000; i++) {
-    ctx.fillStyle = "black"
+    ctx.fillStyle = `black`
     ctx.fillRect(0, 0, canvas.width, canvas.height)
     for (let image of images) {
       image.draw()
@@ -103,5 +97,5 @@ function handleFileSelect(event) {
 }
 
 document
-  .getElementById("wybierzObraz")
-  .addEventListener("change", handleFileSelect, false)
+  .getElementById(`wybierzObraz`)
+  .addEventListener(`change`, handleFileSelect, false)

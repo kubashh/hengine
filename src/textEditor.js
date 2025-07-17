@@ -1,33 +1,33 @@
 class TextEditor {
-  static textBox = createHtmlElement({
+  textBox = createElement({
     name: `textarea`,
     text: `text`,
     className: `textEditorTextarea`,
   })
 
-  static exitButton = createHtmlElement({
+  exitButton = createElement({
     name: `a`,
     text: `Exit`,
     className: `textEditorExitButton`,
-    onclick: TextEditor.hide,
+    onclick: this.hide,
   })
 
-  static div = createHtmlElement({
+  div = createElement({
     className: `textEditor`,
-    childs: [TextEditor.textBox, TextEditor.exitButton],
+    childs: [this.textBox, this.exitButton],
   })
 
-  static show() {
-    TextEditor.textBox.value = selectedObject.script
-    document.body.appendChild(TextEditor.textBox)
-    document.body.appendChild(TextEditor.exitButton)
+  show() {
+    this.textBox.value = selectedObject.script
+    document.body.appendChild(this.textBox)
+    document.body.appendChild(this.exitButton)
   }
 
-  static hide() {
-    selectedObject.script = TextEditor.textBox.value
-    scriptInput.value = TextEditor.textBox.value
+  hide() {
+    selectedObject.script = this.textBox.value
+    scriptInput.value = this.textBox.value
 
-    document.body.removeChild(TextEditor.textBox)
-    document.body.removeChild(TextEditor.exitButton)
+    document.body.removeChild(this.textBox)
+    document.body.removeChild(this.exitButton)
   }
 }

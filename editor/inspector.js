@@ -16,12 +16,12 @@ function deepRefresh() {
     return
   }
 
-  const componentDiv = createHtmlElement({})
+  const componentDiv = createElement({})
 
-  const addComponentDiv = createHtmlElement({
+  const addComponentDiv = createElement({
     style: `margin: 2px;`,
     childs: [
-      createHtmlElement({
+      createElement({
         style: `tab`,
         text: `Add New Component`,
       }),

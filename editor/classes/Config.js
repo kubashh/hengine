@@ -1,9 +1,9 @@
 const CONFIG = {
   gameName: createValueInput(
-    createHtmlElement({
+    createElement({
       text: `Name of Game (Version: ${config.version})`,
     }),
-    createHtmlElement({
+    createElement({
       name: `input`,
       id: `nameOfGameInput`,
       text: config.name,
@@ -14,10 +14,10 @@ const CONFIG = {
     })
   ),
   fullScreen: createValueInput(
-    createHtmlElement({
+    createElement({
       text: `Full Screen`,
     }),
-    createHtmlElement({
+    createElement({
       name: `input`,
       id: `fullScreenCheckbox`,
       type: `checkbox`,
@@ -27,10 +27,10 @@ const CONFIG = {
     })
   ),
   safeUnload: createValueInput(
-    createHtmlElement({
+    createElement({
       text: `Safe Unload`,
     }),
-    createHtmlElement({
+    createElement({
       name: `input`,
       id: `safeUnload`,
       type: `checkbox`,
@@ -40,10 +40,10 @@ const CONFIG = {
     })
   ),
   author: createValueInput(
-    createHtmlElement({
+    createElement({
       text: `Game Author`,
     }),
-    createHtmlElement({
+    createElement({
       name: `input`,
       id: `authorField`,
       oninput: () => {
@@ -52,10 +52,10 @@ const CONFIG = {
     })
   ),
   description: createValueInput(
-    createHtmlElement({
+    createElement({
       text: `Description`,
     }),
-    createHtmlElement({
+    createElement({
       name: `input`,
       id: `descriptionField`,
       oninput: () => {
@@ -72,7 +72,7 @@ const CONFIG = {
 
       inspector.appendChild(
         createSection(`Config`, [
-          createHtmlElement({
+          createElement({
             text: `Basic info`,
           }),
           CONFIG.gameName,

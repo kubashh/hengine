@@ -5,20 +5,20 @@ const SPRITE = {
     `Sprite`,
     [
       createValueInput(
-        createHtmlElement({
+        createElement({
           text: `Color`,
         }),
-        createHtmlElement({
+        createElement({
           name: `input`,
           id: `spriteInput`,
           text: `Color`,
         })
       ),
       createValueInput(
-        createHtmlElement({
+        createElement({
           text: `Image Path`,
         }),
-        createHtmlElement({
+        createElement({
           name: `input`,
           id: `imagePathInput`,
           text: `Path`,
@@ -31,7 +31,7 @@ const SPRITE = {
     }
   ),
 
-  addSprite: createHtmlElement({
+  addSprite: createElement({
     text: `Add Sprite`,
     className: `addNewComponent`,
     onclick: () => {

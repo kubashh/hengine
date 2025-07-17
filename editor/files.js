@@ -1,6 +1,4 @@
-const filesElement = createHtmlElement({
-  style: `padding:5px;`,
-})
+const filesElement = createElement({ style: `padding:5px;` })
 document.getElementById(`files`).innerHTML = ``
 document.getElementById(`files`).appendChild(filesElement)
 const files = {
@@ -135,7 +133,7 @@ function refreshFiles() {
 }
 
 function createFileElement(file, name) {
-  const element = createHtmlElement({
+  const element = createElement({
     text: `${name} (${file.type})`,
     style: `margin-left:16px; cursor:pointer;`,
   })
@@ -159,9 +157,9 @@ function createFileElement(file, name) {
 }
 
 function allFileStructureToHtml() {
-  const div = createHtmlElement({})
+  const div = createElement({})
 
-  const filePathElement = createHtmlElement({
+  const filePathElement = createElement({
     style: `display:flex;`,
   })
 
@@ -169,7 +167,7 @@ function allFileStructureToHtml() {
   for (const f of selectedFilePath) {
     const j = i
     filePathElement.appendChild(
-      createHtmlElement({
+      createElement({
         text: f + `.`,
         onclick: () => {
           selectedFilePath.length = j
@@ -182,7 +180,7 @@ function allFileStructureToHtml() {
 
   div.appendChild(filePathElement)
 
-  const newElement = createHtmlElement({
+  const newElement = createElement({
     text: `..`,
     style: `margin-left:16px; cursor: pointer;`,
   })
@@ -207,13 +205,13 @@ function allFileStructureToHtml() {
 
 function addFileInfo() {
   filesElement.appendChild(
-    createHtmlElement({
+    createElement({
       style: `margin-top:50px;`,
       childs: [
-        createHtmlElement({
+        createElement({
           style: `display:flex;`,
           childs: [
-            createHtmlElement({
+            createElement({
               name: `input`,
               text: selectedFileName,
               style: `margin-right:16px;`,
@@ -227,16 +225,16 @@ function addFileInfo() {
                 refreshFiles()
               },
             }),
-            createHtmlElement({
+            createElement({
               text: `(${selectedFile?.type})`,
             }),
-            createHtmlElement({
+            createElement({
               text: `Delete file`,
               onclick: deleteSelectedFile,
             }),
           ],
         }),
-        createHtmlElement({
+        createElement({
           text: JSON.stringify(selectedFile),
         }),
       ],

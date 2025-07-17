@@ -1,4 +1,4 @@
-function createHtmlElement({
+function createElement({
   name = `div`,
   text = ``,
   className,
@@ -80,15 +80,15 @@ function createHtmlElement({
 
 // create section like sprite or transform
 function createSection(text, properties, removeButtonFunction) {
-  const div = createHtmlElement({
+  const div = createElement({
     className: `section`,
   })
 
   div.appendChild(
-    createHtmlElement({
+    createElement({
       className: `headerOfSection`,
       childs: [
-        createHtmlElement({
+        createElement({
           text: text,
           style: `
           margin-bottom: 5px;
@@ -97,7 +97,7 @@ function createSection(text, properties, removeButtonFunction) {
           padding: 2px;
         `,
         }),
-        createHtmlElement(
+        createElement(
           removeButtonFunction
             ? {
                 text: `Remove`,
@@ -118,7 +118,7 @@ function createSection(text, properties, removeButtonFunction) {
 
 // return div
 function createValueInput(textElement, inputElement) {
-  const div = createHtmlElement({
+  const div = createElement({
     className: `valueInput`,
   })
 

@@ -4,7 +4,7 @@ function refreshHierarchy() {
   hierarchy.innerHTML = ``
 
   for (const object of objects) {
-    hierarchy.appendChild(createElement(object))
+    hierarchy.appendChild(createHierarchyElement(object))
   }
 }
 
@@ -13,11 +13,11 @@ function createNewObject() {
   refreshHierarchy()
 }
 
-function createElement(object) {
-  const div = createHtmlElement({})
+function createHierarchyElement(object) {
+  const div = createElement({})
 
   div.appendChild(
-    createHtmlElement({
+    createElement({
       text: object.name,
       className: `tab`,
       onclick: () => {
@@ -32,7 +32,7 @@ function createElement(object) {
 
   if (object.children && object.children.length > 0) {
     for (const child of object.children) {
-      div.appendChild(createElement(child))
+      div.appendChild(createHierarchyElement(child))
     }
   }
 

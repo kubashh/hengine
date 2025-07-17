@@ -1,11 +1,11 @@
 const NAME = {
-  div: createHtmlElement({
+  div: createElement({
     name: `input`,
     text: `ObjectName`,
   }),
 
   add(componentDiv) {
-    this.div = createHtmlElement({
+    this.div = createElement({
       name: `input`,
       text: selectedObject.name,
     })
@@ -14,7 +14,7 @@ const NAME = {
     componentDiv.appendChild(
       createSection(`Name`, [
         createValueInput(
-          createHtmlElement({
+          createElement({
             text: `Name`,
           }),
           this.div
@@ -38,43 +38,43 @@ const NAME = {
 }
 
 const TRANSFORM = {
-  positionX: createHtmlElement({
+  positionX: createElement({
     name: `input`,
     id: `positionX`,
     text: 0,
   }),
-  positionY: createHtmlElement({
+  positionY: createElement({
     name: `input`,
     id: `positionY`,
     text: 0,
   }),
-  rotation: createHtmlElement({
+  rotation: createElement({
     name: `input`,
     id: `rotation`,
     text: 0,
   }),
-  scaleX: createHtmlElement({
+  scaleX: createElement({
     name: `input`,
     id: `scaleX`,
     text: 1,
   }),
-  scaleY: createHtmlElement({
+  scaleY: createElement({
     name: `input`,
     id: `scaleY`,
     text: 1,
   }),
 
   add(componentDiv) {
-    const div1 = createHtmlElement({
+    const div1 = createElement({
       childs: [
         createValueInput(
-          createHtmlElement({
+          createElement({
             text: `x`,
           }),
           this.positionX
         ),
         createValueInput(
-          createHtmlElement({
+          createElement({
             text: `y`,
           }),
           this.positionY
@@ -82,25 +82,25 @@ const TRANSFORM = {
       ],
     })
 
-    const div2 = createHtmlElement({
+    const div2 = createElement({
       child: createValueInput(
-        createHtmlElement({
+        createElement({
           text: `z`,
         }),
         this.rotation
       ),
     })
 
-    const div3 = createHtmlElement({
+    const div3 = createElement({
       childs: [
         createValueInput(
-          createHtmlElement({
+          createElement({
             text: `x`,
           }),
           this.scaleX
         ),
         createValueInput(
-          createHtmlElement({
+          createElement({
             text: `y`,
           }),
           this.scaleY
@@ -111,19 +111,19 @@ const TRANSFORM = {
     // transform
     componentDiv.appendChild(
       createSection(`Transform`, [
-        createHtmlElement({
+        createElement({
           text: `Position`,
           style: `margin-bottom:6px;`,
           className: `tab`,
           child: div1,
         }),
-        createHtmlElement({
+        createElement({
           text: `Rotation`,
           style: `margin-bottom:6px;`,
           className: `tab`,
           child: div2,
         }),
-        createHtmlElement({
+        createElement({
           text: `Scale`,
           style: `margin-bottom:6px;`,
           className: `tab`,

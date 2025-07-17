@@ -2,14 +2,14 @@ const SCRIPT = {
   script: createSection(
     `Script`,
     [
-      createHtmlElement({
+      createElement({
         childs: [
-          createHtmlElement({
+          createElement({
             name: `textarea`,
             id: `scriptInput`,
             style: `height: 300px; width: 100%; color: white;`,
           }),
-          createHtmlElement({
+          createElement({
             text: `Full open`,
             onclick: TextEditor.show,
           }),
@@ -22,7 +22,7 @@ const SCRIPT = {
     }
   ),
 
-  addScript: createHtmlElement({
+  addScript: createElement({
     text: `Add Script`,
     className: `addNewComponent`,
     onclick: () => {
