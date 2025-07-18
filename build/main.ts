@@ -40,3 +40,15 @@ const files = [
   .join(`\n`) // Join lines
 
 writeFileSync(`dist/main.js`, files)
+
+// CSS
+
+const cssFile = [readFileSync("src/styles/main.css"), readFileSync("src/styles/components.css")]
+  .join(`\n`)
+  .replaceAll(/\/\*[\s\S]*?\*\/*/g, ``) // Remove comments
+  .split(`\n`) // Split into lines
+  .map((line) => line.trim()) // Trim lines
+  .filter((line) => line !== ``) // Remove empty lines
+  .join(`\n`) // Join lines
+
+writeFileSync(`dist/main.css`, cssFile)
