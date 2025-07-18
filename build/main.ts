@@ -31,6 +31,12 @@ const files = [
 
   // Main
   readFileSync("src/main.js"),
-].join(`\n`)
+]
+  .join(`\n`)
+  .replaceAll(/\/\*[\s\S]*?\*\/|\/\/.*/g, ``) // Remove comments
+  .split(`\n`) // Split into lines
+  .map((line) => line.trim()) // Trim lines
+  .filter((line) => line !== ``) // Remove empty lines
+  .join(`\n`) // Join lines
 
 writeFileSync(`dist/main.js`, files)
