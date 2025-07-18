@@ -1,0 +1,17 @@
+{
+  "name": "hengine",
+  "private": true,
+  "scripts": {
+    "build": "bun build/main.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 112
+  }
+}

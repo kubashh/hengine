@@ -4,44 +4,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="/hengine/favicon.ico" />
+    <link rel="shortcut icon" href="/hengine/favicon.ico" type="image/png" />
     <title>HEngine</title>
 
     <!-- Styles -->
     <link href="src/styles/main.css" rel="stylesheet" />
 
-    <!-- Lib Resources -->
-    <script defer src="src/lib/consts.js"></script>
-    <script defer src="src/lib/util.js"></script>
-    <script defer src="src/lib/classes.js"></script>
-
-    <!-- Build stafs -->
-    <script defer src="src/build/classes/Obj.js"></script>
-    <script defer src="src/build/classes/Transform.js"></script>
-    <script defer src="src/build/classes/Sprite.js"></script>
-    <script defer src="src/build/classes/Scene.js"></script>
-
-    <script defer src="src/build/utilBuild.js"></script>
-    <script defer src="src/build/functions.js"></script>
-    <script defer src="src/build/startAndUpdate.js"></script>
-    <script defer src="src/build/build.js"></script>
-
-    <!-- Editor -->
-    <script defer src="src/editor/classes/Obj.js"></script>
-    <script defer src="src/editor/classes/NameAndTransform.js"></script>
-    <script defer src="src/editor/classes/Sprite.js"></script>
-    <script defer src="src/editor/classes/Script.js"></script>
-    <script defer src="src/editor/classes/Text.js"></script>
-    <script defer src="src/editor/classes/Config.js"></script>
-
-    <script defer src="src/editor/utilEditor.js"></script>
-
-    <script defer src="src/editor/hierarchy.js"></script>
-    <script defer src="src/editor/files.js"></script>
-    <script defer src="src/editor/inspector.js"></script>
-
-    <!-- Main -->
-    <script defer src="src/main.js"></script>
+    <script defer src="dist/main.js"></script>
   </head>
 
   <body>
@@ -61,12 +30,7 @@
             <label for="plikInput">
               <a>Load</a>
             </label>
-            <input
-              type="file"
-              id="plikInput"
-              style="display: none"
-              accept=".json"
-            />
+            <input type="file" id="plikInput" style="display: none" accept=".json" />
           </li>
           <li>
             <a id="saveButton" onclick="save()">Save</a>
@@ -118,9 +82,7 @@
           <div class="nameBorder">
             <div>Inspector</div>
             <div>
-              <a style="margin-right: 60px" onclick="deleteSelectedObject()"
-                >Delete</a
-              >
+              <a style="margin-right: 60px" onclick="deleteSelectedObject()">Delete</a>
             </div>
           </div>
           <div id="inspector"></div>
