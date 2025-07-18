@@ -1,24 +1,58 @@
-/*const Camera = {
-  id: setId(),
-  name: `Camera`,
-  transform: {
-    position: {
-      x: 0,
-      y: 0
-    },
-    rotation: 0,
-    scale: {
-      x: 1,
-      y: 1
+document
+  .querySelector(`.hierarchyBox`)
+  .addEventListener(`click`, () => (selectedField = selectedOptions.HIERARCHY))
+document
+  .querySelector(`.filesBox`)
+  .addEventListener(`click`, () => (selectedField = selectedOptions.FILES))
+document
+  .querySelector(`.inspectorBox`)
+  .addEventListener(`click`, () => (selectedField = selectedOptions.INSPECTOR))
+
+// Shortcuts
+document.addEventListener(`keydown`, (e) => {
+  if (e.ctrlKey)
+    switch (e.key) {
+      case `s`:
+        e.preventDefault()
+        save()
+        break
+      case `d`:
+        e.preventDefault()
+        copyElement()
+        refreshHierarchy()
+        break
+      case `q`:
+        e.preventDefault()
+        startTestGame()
+        break
+      case `y`:
+        e.preventDefault()
+        CONFIG.show()
+        break
     }
-  }
+})
+
+function saveScene() {
+  selectedScene.objects = deepCopy(objects)
 }
 
-objects.push(Camera)*/
+document.addEventListener(`click`, saveScene)
+document.addEventListener(`click`, () => {
+  if (inInspector) {
+    refreshInspector()
+  }
+})
+window.addEventListener(`load`, () => (editorLoad = true))
+
+FILES.refreshSelectedFile()
+refreshFiles()
+
+saveScene()
 
 updateTitle()
 refreshHierarchy()
 refreshFiles()
+deepRefresh()
 
 new Obj({
   script: `start() {

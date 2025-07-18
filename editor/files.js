@@ -52,34 +52,20 @@ const files = {
 }
 
 const FILES = {
-  next(bool = true) {
+  next() {
     const obiekt = getCurrentFolder()
     const keys = Object.keys(obiekt).filter((item) => item !== `type`)
     let indexNow = keys.indexOf(selectedFileName)
-    if (bool) {
-      indexNow++
-      if (indexNow >= keys.length) {
-        indexNow = 0
-      }
-    } else {
-      indexNow--
-      if (indexNow < 0) {
-        indexNow = keys.length - 1
-      }
+
+    indexNow++
+    if (indexNow >= keys.length) {
+      indexNow = 0
     }
 
     selectedFileName = keys[indexNow]
     selectedFile = obiekt[selectedFileName]
 
     refreshFiles()
-  },
-
-  up() {
-    FILES.next(false)
-  },
-
-  down() {
-    FILES.next()
   },
 
   left() {
@@ -109,15 +95,8 @@ const FILES = {
   },
 }
 
-const selectedFilePath = [`files`]
-let selectedFileName = ``
-
-let selectedFile = ``
-FILES.refreshSelectedFile()
-
 function newFile(name = `NewFile`) {
   const file = name
-  //files.push(file)
   selectedFile = file
 }
 
@@ -242,9 +221,7 @@ function addFileInfo() {
 function getCurrentFolder() {
   let element = files
   for (const f of selectedFilePath) {
-    if (f != `files`) {
-      element = element[f]
-    }
+    if (f !== `files`) element = element[f]
   }
 
   return element
@@ -253,9 +230,7 @@ function getCurrentFolder() {
 function addNewFolder() {
   const folder = getCurrentFolder()
   const name = checkFileName(`NewFile`)
-  folder[name] = {
-    type: `folder`,
-  }
+  folder[name] = { type: `folder` }
 
   refreshFiles()
 }
@@ -264,14 +239,10 @@ function importFile() {}
 
 function checkFileName(name) {
   const folder = getCurrentFolder()
-  if (!findFileByName(name, folder)) {
-    return name
-  }
+  if (!findFileByName(name, folder)) return name
 
   let i = 0
-  while (findFileByName(name + i, folder)) {
-    i++
-  }
+  while (findFileByName(name + i, folder)) i++
 
   return name + i
 }
@@ -294,8 +265,6 @@ function deleteSelectedFile() {
   delete folder[selectedFileName]
   FILES.refreshSelectedFile()
 }
-
-refreshFiles()
 
 function checkString(string) {
   return string.replace(/^\d+|\W+/g, ``)

@@ -1,9 +1,3 @@
-const inspector = document.getElementById(`inspector`)
-
-let selectedObject = undefined
-
-let inInspector = true
-
 function cleanInspector() {
   inspector.innerHTML = ``
 }
@@ -59,12 +53,6 @@ function refreshInspector(object) {
   refreshHierarchy()
 }
 
-document.addEventListener(`click`, () => {
-  if (inInspector) {
-    refreshInspector()
-  }
-})
-
 function updateValue() {
   if (!selectedObject) {
     return
@@ -91,5 +79,3 @@ function deleteSelectedObject() {
     console.error(objects)
   }
 }
-
-deepRefresh()
