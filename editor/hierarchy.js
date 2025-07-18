@@ -1,5 +1,3 @@
-const hierarchy = document.getElementById(`hierarchy`)
-
 function refreshHierarchy() {
   hierarchy.innerHTML = ``
 

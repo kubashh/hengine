@@ -1,5 +1,4 @@
 const filesElement = createElement({ style: `padding:5px;` })
-document.getElementById(`files`).innerHTML = ``
 document.getElementById(`files`).appendChild(filesElement)
 const files = {
   type: `folder`,
@@ -109,8 +108,6 @@ const FILES = {
     refreshFiles()
   },
 }
-
-let inFiles = true
 
 const selectedFilePath = [`files`]
 let selectedFileName = ``
@@ -243,7 +240,7 @@ function addFileInfo() {
 }
 
 function getCurrentFolder() {
-  const element = files
+  let element = files
   for (const f of selectedFilePath) {
     if (f != `files`) {
       element = element[f]

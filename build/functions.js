@@ -1,14 +1,13 @@
 const functions = `
-const randNum = (min, max) => {
+function randNum(min, max) {
   return Math.random() * (max - min) + min
 }
 
-const randInt = (min, max) => {
+function randInt(min, max) {
   return Math.floor(randNum(min, max))
 }
 
-
-const deepCopy = (object) => {
+function deepCopy(object) {
   if(typeof object !== "object" || object === null) {
     return object
   }
@@ -22,8 +21,7 @@ const deepCopy = (object) => {
   return newObject
 }
 
-
-const clone = (object) => {
+function clone(object) {
   const newObject = new Obj({
     transform: new Transform({
       transform: deepCopy(object.transform)
@@ -46,15 +44,13 @@ const clone = (object) => {
   newObject.start?.()
 }
 
-
-const createObject = ({object, transform, sprite}) => {
+function createObject({object, transform, sprite}) {
   const newObject = deepCopy(object)
   newObject.awake?.()
   newObject.start?.()
 }
 
-
-const del = (object, timeout = 0) => {
+function del(object, timeout = 0) {
   setTimeout(() => {
     if(objects.includes(object)) {
       for(const key in object) {
@@ -66,20 +62,22 @@ const del = (object, timeout = 0) => {
   }, timeout)
 }
 
+function now() {
+  return window.performance.now()
+}
 
-
-const now = () => window.performance.now()
-
-
-
-
-const clear = () => {
+function clear() {
   ctx.fillStyle = "black"
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 }
 
-    
-const drawBox = (x, y, w, h, color) => {
+function drawBox(x, y, w, h, color) {
+  if(color) ctx.fillStyle = color
+
+  ctx.fillRect(x, y, w, h)
+}
+
+function drawBoxMiddle(x, y, w, h, color) {
   if(color) {
     ctx.fillStyle = color
   }
@@ -87,35 +85,16 @@ const drawBox = (x, y, w, h, color) => {
   ctx.fillRect(x, y, w, h)
 }
 
-const drawBoxMiddle = (x, y, w, h, color) => {
-  if(color) {
-    ctx.fillStyle = color
-  }
-
-  ctx.fillRect(x, y, w, h)
-}
-
-const drawText = (text, x, y, color, h, textAlign, textBaseline) => {
-  if(color) {
-    ctx.fillStyle = color
-  }
-
-  if(h) {
-    ctx.font = h + "px Arial"
-  }
-
-  if(textBaseline) {
-    ctx.textBaseline = textBaseline
-  }
-  if(textAlign) {
-    ctx.textAlign = textAlign
-  }
+function drawText(text, x, y, color, h, textAlign, textBaseline) {
+  if(color) ctx.fillStyle = color
+  if(h) ctx.font = h + "px Arial"
+  if(textBaseline) ctx.textBaseline = textBaseline
+  if(textAlign) ctx.textAlign = textAlign
 
   ctx.fillText(text, x, y)
 }
 
-
-const wait = async (time) => {
+async function wait(time) {
   await new Promise(resolve => setTimeout(resolve, time))
 }
 `

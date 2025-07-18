@@ -34,3 +34,39 @@ function htmlCode() {
     </html>
   `)
 }
+
+const codeOptimalize = (text) =>
+  text
+    .replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, ``) // Remove comments
+    .split(`\n`)
+    .map((line) => line.trim())
+    .filter((line) => line !== ``)
+    .join(`\n`)
+
+function fullScreen() {
+  return config.fullScreen
+    ? `
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+  })
+
+  window.addEventListener("contextmenu", (e) => {
+    e.preventDefault()
+
+    !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen()
+  })
+`
+    : ``
+}
+
+function safeUnload() {
+  return config.safeUnload
+    ? `
+  window.addEventListener("beforeunload", (event) => {
+    event.preventDefault()
+    console.log("exit")
+  })
+`
+    : ``
+}

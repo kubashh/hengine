@@ -1,8 +1,4 @@
 const startAndUpdate = `
-  clear()
-
-  selectedScene.load()
-
   function allStart() {
     for(const o of objects) {
       o.start?.()
@@ -126,6 +122,4 @@ const startAndUpdate = `
       await wait(2)
     }
   }
-
-  run()
 `

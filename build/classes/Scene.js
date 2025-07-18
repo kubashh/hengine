@@ -1,5 +1,4 @@
-const classScene = `
-class Scene {
+const classScene = `class Scene {
   constructor(objects) {
     this.objects = []
     for(const key in objects) {

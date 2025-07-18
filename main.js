@@ -1,17 +1,3 @@
-const objects = []
-
-const scenes = [{ objects: [] }]
-
-let selectedScene = scenes[0]
-
-function findElementByName(name) {
-  return objects.find((o) => o.name === name)
-}
-
-function saveScene() {
-  selectedScene.objects = deepCopy(objects)
-}
-
 /*const Camera = {
   id: setId(),
   name: `Camera`,
@@ -31,9 +17,7 @@ function saveScene() {
 objects.push(Camera)*/
 
 updateTitle()
-
 refreshHierarchy()
-
 refreshFiles()
 
 new Obj({
@@ -45,7 +29,3 @@ new Obj({
 })
 
 refreshInspector(new Obj({ script: defaultScript }))
-
-saveScene()
-
-document.addEventListener(`click`, saveScene)

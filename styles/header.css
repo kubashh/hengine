@@ -12,7 +12,7 @@
 }
 
 .dropdown-menu a:hover {
-  color: #fbf;
+  color: var(--col2);
 }
 
 .dropdown-menu ul {

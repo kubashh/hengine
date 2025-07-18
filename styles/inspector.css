@@ -32,7 +32,7 @@
 
 .section {
   padding-bottom: 8px;
-  border-bottom: 2px var(--color3) solid;
+  border-bottom: 2px var(--col1) solid;
   margin-top: 16px;
 }
 
@@ -54,7 +54,7 @@
   display: table;
   align-self: center;
   margin: 16px 0 0 24px;
-  background-color: var(--color3);
+  background-color: var(--col1);
   padding: 4px 6px;
   width: fit-content;
 }
