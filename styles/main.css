@@ -1,8 +1,20 @@
-@import "./config.css";
-@import "./header.css";
-@import "./hierarchy.css";
-@import "./files.css";
-@import "./inspector.css";
+@import "./components.css";
+
+/* Config */
+
+/* Kolor paska suwaka */
+::-webkit-scrollbar-thumb {
+  background-color: #222; /* Kolor tła paska suwaka */
+  border-radius: 0; /* Zaokrąglenie rogów paska suwaka */
+}
+
+/* Kolor tła samego suwaka */
+::-webkit-scrollbar {
+  background-color: black; /* Kolor tła suwaka */
+  width: 10px; /* Grubość paska suwaka */
+}
+
+/* Main */
 
 :root {
   --col0: #aaa;

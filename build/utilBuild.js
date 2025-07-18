@@ -46,10 +46,12 @@ const codeOptimalize = (text) =>
 function fullScreen() {
   return config.fullScreen
     ? `
-  window.addEventListener("resize", () => {
+  function resize() {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
-  })
+  }
+
+  window.addEventListener("resize", resize)
 
   window.addEventListener("contextmenu", (e) => {
     e.preventDefault()

@@ -28,6 +28,7 @@ ${startAndUpdate}
 `
 
 const run = `
+resize()
 clear()
 selectedScene.load()
 run()`
