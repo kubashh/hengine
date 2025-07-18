@@ -1,3 +1,9 @@
+@import "./config.css";
+@import "./header.css";
+@import "./hierarchy.css";
+@import "./files.css";
+@import "./inspector.css";
+
 :root {
   --color0: #aaa;
   --color3: #111;

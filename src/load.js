@@ -1,7 +1,7 @@
 const plikInput = document.getElementById(`plikInput`)
 
-plikInput.addEventListener(`change`, function () {
-  const file = this.files[0]
+plikInput.addEventListener(`change`, ({ target }) => {
+  const file = target.files[0]
   const reader = new FileReader()
 
   reader.onload = ({ target }) => {

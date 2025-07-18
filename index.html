@@ -1,146 +1,139 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-  <title>HEngine</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <title>HEngine</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Styles -->
-  <link href="styles/config.css" rel="stylesheet">
+    <!-- Styles -->
+    <link href="styles/main.css" rel="stylesheet" />
 
-  <link href="styles/style.css" rel="stylesheet">
+    <!-- Lib Resources -->
+    <script defer src="lib/consts.js"></script>
+    <script defer src="lib/util.js"></script>
+    <script defer src="lib/classes.js"></script>
+    <script defer src="lib/setup.js"></script>
 
-  <link href="styles/header.css" rel="stylesheet">
-  <link href="styles/hierarchy.css" rel="stylesheet">
-  <link href="styles/files.css" rel="stylesheet">
-  <link href="styles/inspector.css" rel="stylesheet">
+    <!-- Build stafs -->
+    <script defer src="build/classes/Obj.js"></script>
+    <script defer src="build/classes/Transform.js"></script>
+    <script defer src="build/classes/Sprite.js"></script>
+    <script defer src="build/classes/Scene.js"></script>
 
+    <script defer src="build/classes.js"></script>
 
-  <!-- Resources -->
-  <script defer src="lib/consts.js"></script>
+    <script defer src="build/functions.js"></script>
+    <script defer src="build/htmlCode.js"></script>
+    <script defer src="build/fullScreen.js"></script>
+    <script defer src="build/startAndUpdate.js"></script>
+    <script defer src="build/codeOptimalize.js"></script>
+    <script defer src="build/build.js"></script>
 
+    <!-- Editor -->
+    <script defer src="editor/classes/Obj.js"></script>
+    <script defer src="editor/classes/NameAndTransform.js"></script>
+    <script defer src="editor/classes/Sprite.js"></script>
+    <script defer src="editor/classes/Script.js"></script>
+    <script defer src="editor/classes/Text.js"></script>
+    <script defer src="editor/classes/Config.js"></script>
 
-  <!-- Build stafs -->
-  <script defer src="build/classes/Obj.js"></script>
-  <script defer src="build/classes/Transform.js"></script>
-  <script defer src="build/classes/Sprite.js"></script>
-  <script defer src="build/classes/Scene.js"></script>
+    <script defer src="editor/testGame.js"></script>
+    <script defer src="editor/hierarchy.js"></script>
+    <script defer src="editor/files.js"></script>
+    <script defer src="editor/inspector.js"></script>
 
-  <script defer src="build/classes.js"></script>
+    <script defer src="src/load.js"></script>
+    <script defer src="src/save.js"></script>
 
-  <script defer src="build/functions.js"></script>
-  <script defer src="build/htmlCode.js"></script>
-  <script defer src="build/fullScreen.js"></script>
-  <script defer src="build/startAndUpdate.js"></script>
-  <script defer src="build/codeOptimalize.js"></script>
-  <script defer src="build/build.js"></script>
+    <script defer src="editor/editor.js"></script>
 
+    <!-- Main file -->
+    <script defer src="index.js"></script>
+  </head>
 
-  <!-- Editor -->
-  <script defer src="src/functions.js"></script>
-  <script defer src="src/input.js"></script>
-  <script defer src="src/textEditor.js"></script>
-
-  <script defer src="editor/classes/Obj.js"></script>
-  <script defer src="editor/classes/NameAndTransform.js"></script>
-  <script defer src="editor/classes/Sprite.js"></script>
-  <script defer src="editor/classes/Script.js"></script>
-  <script defer src="editor/classes/Text.js"></script>
-  <script defer src="editor/classes/Config.js"></script>
-
-  <script defer src="editor/testGame.js"></script>
-  <script defer src="editor/hierarchy.js"></script>
-  <script defer src="editor/files.js"></script>
-  <script defer src="editor/inspector.js"></script>
-
-  <script defer src="src/load.js"></script>
-  <script defer src="src/save.js"></script>
-
-  <script defer src="editor/editor.js"></script>
-
-
-  <!-- Main file -->
-  <script defer src="index.js"></script>
-</head>
-
-
-<body>
-  <!-- Pseudo Canvas -->
-  <header>
-    <!-- Dropdown Menu -->
-    <div class="dropdown-menu">
-      <a>menu</a>
-      <ul>
-        <li>
-          <a onclick="startTestGame()">Test</a>
-        </li>
-        <li>
-          <a onclick="buildGame()">Download</a>
-        </li>
-        <li>
-          <label for="plikInput">
-            <a>Load</a>
-          </label>
-          <input type="file" id="plikInput" style="display: none;" accept=".json">
-        </li>
-        <li>
-          <a id="saveButton" onclick="save()">Save</a>
-        </li>
-        <li>
-          <a onclick="CONFIG.show()">Config</a>
-        </li>
-      </li>
-      </ul>
-    </div>
-
-    <!-- Pop up load -->
-    <div id="popup-load">
-      <div>
-        <a onclick="firstLoad()">Load Project</a>
-        <a onclick="newProject()">New Project</a>
+  <body>
+    <!-- Pseudo Canvas -->
+    <header>
+      <!-- Dropdown Menu -->
+      <div class="dropdown-menu">
+        <a>menu</a>
+        <ul>
+          <li>
+            <a onclick="startTestGame()">Test</a>
+          </li>
+          <li>
+            <a onclick="buildGame()">Download</a>
+          </li>
+          <li>
+            <label for="plikInput">
+              <a>Load</a>
+            </label>
+            <input
+              type="file"
+              id="plikInput"
+              style="display: none"
+              accept=".json"
+            />
+          </li>
+          <li>
+            <a id="saveButton" onclick="save()">Save</a>
+          </li>
+          <li>
+            <a onclick="CONFIG.show()">Config</a>
+          </li>
+        </ul>
       </div>
-    </div>
-  </header>
 
-  <!-- Main content -->
-  <main>
-    <div class="container">
-      <!-- Hierarchy -->
-      <div class="hierarchyBox item">
-        <div class="nameBorder">
-          <div>Hierarchy</div>
-          <div>
-            <a onclick="createNewObject()">+ Add New Object</a>
-          </div>
+      <!-- Pop up load -->
+      <div id="popup-load">
+        <div>
+          <a onclick="firstLoad()">Load Project</a>
+          <a onclick="newProject()">New Project</a>
         </div>
-        <div id="hierarchy"></div>
       </div>
+    </header>
 
-      <!-- Files -->
-      <div class="filesBox item">
-        <div class="nameBorder">
-          <div>Files</div>
-          <div>
-            <a onclick="importFile()">Import File</a>
-            <a onclick="addNewFolder()">New Folder</a>
-            <a onclick="copyCurrentPath()">Path</a>
+    <!-- Main content -->
+    <main>
+      <div class="container">
+        <!-- Hierarchy -->
+        <div class="hierarchyBox item">
+          <div class="nameBorder">
+            <div>Hierarchy</div>
+            <div>
+              <a onclick="createNewObject()">+ Add New Object</a>
+            </div>
           </div>
+          <div id="hierarchy"></div>
         </div>
-        <div id="files"></div>
-      </div>
 
-      <!-- Inspector -->
-      <div class="inspectorBox item">
-        <div class="nameBorder">
-          <div>Inspector</div>
-          <div>
-            <a style="margin-right: 60px;" onclick="deleteSelectedObject()">Delete</a>
+        <!-- Files -->
+        <div class="filesBox item">
+          <div class="nameBorder">
+            <div>Files</div>
+            <div>
+              <a onclick="importFile()">Import File</a>
+              <a onclick="addNewFolder()">New Folder</a>
+              <a onclick="copyCurrentPath()">Path</a>
+            </div>
           </div>
+          <div id="files"></div>
         </div>
-        <div id="inspector"></div>
+
+        <!-- Inspector -->
+        <div class="inspectorBox item">
+          <div class="nameBorder">
+            <div>Inspector</div>
+            <div>
+              <a style="margin-right: 60px" onclick="deleteSelectedObject()"
+                >Delete</a
+              >
+            </div>
+          </div>
+          <div id="inspector"></div>
+        </div>
       </div>
-    </div>
-  </main>
-</body>
+    </main>
+  </body>
 </html>

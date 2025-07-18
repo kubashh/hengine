@@ -7,25 +7,19 @@ function htmlCode() {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="author" content="${config.author}">
       <meta name="description" content="${config.description}">
+      <meta name="keywords" content="${config.gameName}, ${config.author}">
       <title>${config.gameName}</title>
 
-      <meta name="keywords" content="${config.gameName}, ${config.author}">
-      <meta property="og:title" content="${config.gameName}">
-      <meta property="og:description" content="${config.description}">
       <style>
-        html, body {
+        body {
           background-color:black;
           margin:0;
           border:0;
           padding:0;
-          user-select:none;
           width:100%;
           height:100%;
-          overflow:hidden;
         }
-        canvas {
-          display:block;
-        }
+        canvas { display:block; }
       </style>
     </head>
     <body>

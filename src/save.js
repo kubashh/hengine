@@ -7,12 +7,11 @@ function save() {
     objects,
   })
 
-  const htmlElement = document.createElement(`a`)
-  htmlElement.href = `data:application/json;charset=utf-8,${encodeURIComponent(
+  const src = `data:application/json;charset=utf-8,${encodeURIComponent(
     jsonData
   )}`
-  htmlElement.download = `${config.gameName}${config.version}.json`
-  htmlElement.click()
+
+  downloadFile(`${config.gameName}${config.version}.json`, src)
 
   updateTitle()
 }

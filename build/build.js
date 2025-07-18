@@ -1,4 +1,5 @@
-const objectToString = (object) => `
+function objectToString(object) {
+  return `
   ${object.name}: new Obj ({
     transform: new Transform({
       transform: ${JSON.stringify(object.transform)}
@@ -23,6 +24,7 @@ const objectToString = (object) => `
     }
   }),
 `
+}
 
 const camera = `Camera = {
   transform: {
@@ -38,7 +40,8 @@ const camera = `Camera = {
   }
 }`
 
-const allObjects = (object) => `
+function allObjects(object) {
+  return `
   ${object.reduce(
     (last, o) => `${last}
     ${objectToString(o)}
@@ -46,18 +49,16 @@ const allObjects = (object) => `
     `{
 `
   )}}`
+}
 
-const allScenes = () => {
-  let text = `
+function allScenes() {
+  const text = scenes.reduce(
+    (prev, s) => `${prev}new Scene(${allObjects(s.objects)}),`,
+    `
     const objects = []
     const scenes = [
   `
-
-  for (const s of scenes) {
-    text += `
-      new Scene(${allObjects(s.objects)}),
-    `
-  }
+  )
 
   return `${text}
     ]
@@ -66,7 +67,8 @@ const allScenes = () => {
   `
 }
 
-const jsCode = () => `
+function jsCode() {
+  return `
   const canvas = document.getElementById("gameCanvas")
   const ctx = canvas.getContext("2d")
 
@@ -78,12 +80,11 @@ const jsCode = () => `
   ${allScenes()}
   ${startAndUpdate}
 `
+}
 
 const buildGame = () => {
-  const htmlElement = document.createElement(`a`)
-  htmlElement.href = `data:text/html;charset=utf-8,${encodeURIComponent(
-    htmlCode()
-  )}`
-  htmlElement.download = `${config.gameName}.html`
-  htmlElement.click()
+  downloadFile(
+    `${config.gameName}.html`,
+    `data:text/html;charset=utf-8,${encodeURIComponent(htmlCode())}`
+  )
 }

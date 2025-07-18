@@ -1,23 +1,22 @@
-const fullScreen = () =>
-  config.fullScreen
+function fullScreen() {
+  return config.fullScreen
     ? `
   window.addEventListener("resize", () => {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
   })
 
-  document.addEventListener("click", () => {
-    if(document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen()
-    } else {
-      console.error("pierdole")
-    }
+  window.addEventListener("contextmenu", (e) => {
+    e.preventDefault()
+
+    !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen()
   })
 `
     : ``
+}
 
-const safeUnload = () =>
-  config.safeUnload
+function safeUnload() {
+  return config.safeUnload
     ? `
   window.addEventListener("beforeunload", (event) => {
     event.preventDefault()
@@ -25,3 +24,4 @@ const safeUnload = () =>
   })
 `
     : ``
+}
