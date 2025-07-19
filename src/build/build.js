@@ -1,32 +1,3 @@
-const camera = `Camera = {
-  transform: {
-    position: {
-      x: 0,
-      y: 0
-    },
-    rotation: 0,
-    scale: {
-      x: 1,
-      y: 1
-    }
-  }
-}`
-
-const staticJS = `
-const canvas = document.getElementById("gameCanvas")
-const ctx = canvas.getContext("2d")
-
-const objects = []
-
-${classObj}
-${classTransform}
-${classSprite}
-${classScene}
-${functions}
-${camera}
-${startAndUpdate}
-`
-
 const run = `
 resize()
 clear()
@@ -73,10 +44,7 @@ function allObjects(object) {
 
 function allScenes() {
   return `
-    const scenes = [${scenes.reduce(
-      (prev, s) => `${prev}new Scene(${allObjects(s.objects)}),`,
-      ``
-    )}]
+    const scenes = [${scenes.reduce((prev, s) => `${prev}new Scene(${allObjects(s.objects)}),`, ``)}]
 
     let selectedScene = scenes[0]
   `
@@ -94,8 +62,5 @@ function jsCode() {
 }
 
 function buildGame() {
-  downloadFile(
-    `${config.gameName}.html`,
-    `data:text/html;charset=utf-8,${encodeURIComponent(htmlCode())}`
-  )
+  downloadFile(`${config.gameName}.html`, `data:text/html;charset=utf-8,${encodeURIComponent(htmlCode())}`)
 }

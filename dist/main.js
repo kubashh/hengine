@@ -1,3 +1,307 @@
+const staticJS = `const canvas = document.getElementById("gameCanvas")
+const ctx = canvas.getContext("2d")
+const objects = []
+Camera = {
+transform: {
+position: {
+x: 0,
+y: 0,
+},
+rotation: 0,
+scale: {
+x: 1,
+y: 1,
+},
+},
+}
+timers = {
+update: {
+gravity: 0,
+user: 0,
+all: 0,
+},
+}
+let running = true
+const ms = 1000 / 60
+let updatesLegit = 0
+let framesLegit = 0
+function randNum(min, max) {
+return Math.random() * (max - min) + min
+}
+function randInt(min, max) {
+return Math.floor(randNum(min, max))
+}
+function deepCopy(object) {
+if (typeof object !== "object" || object === null) {
+return object
+}
+const newObject = Array.isArray(object) ? [] : {}
+for (const key in object) {
+newObject[key] = deepCopy(object[key])
+}
+return newObject
+}
+function clone(object) {
+const newObject = new Obj({
+transform: new Transform({
+transform: deepCopy(object.transform),
+}),
+...(object.sprite
+? {
+sprite: new Sprite(object.sprite.color, object.sprite.width, object.sprite.height),
+}
+: {}),
+})
+for (const key in object) {
+if (object.hasOwnProperty(key) && !newObject.hasOwnProperty(key)) {
+if (typeof object[key] === "function") {
+newObject[key] = object[key].bind(newObject)
+} else {
+newObject[key] = object[key]
+}
+}
+}
+objects.push(newObject)
+newObject.start?.()
+}
+function createObject({ object, transform, sprite }) {
+const newObject = deepCopy(object)
+newObject.awake?.()
+newObject.start?.()
+}
+function del(object, timeout = 0) {
+setTimeout(() => {
+if (objects.includes(object)) {
+for (const key in object) {
+delete object[key]
+}
+objects.splice(objects.indexOf(object), 1)
+}
+}, timeout)
+}
+function now() {
+return window.performance.now()
+}
+function clear() {
+ctx.fillStyle = "black"
+ctx.fillRect(0, 0, canvas.width, canvas.height)
+}
+function drawBox(x, y, w, h, color) {
+if (color) ctx.fillStyle = color
+ctx.fillRect(x, y, w, h)
+}
+function drawBoxMiddle(x, y, w, h, color) {
+if (color) {
+ctx.fillStyle = color
+}
+ctx.fillRect(x, y, w, h)
+}
+function drawText(text, x, y, color, h, textAlign, textBaseline) {
+if (color) ctx.fillStyle = color
+if (h) ctx.font = h + "px Arial"
+if (textBaseline) ctx.textBaseline = textBaseline
+if (textAlign) ctx.textAlign = textAlign
+ctx.fillText(text, x, y)
+}
+async function wait(time) {
+await new Promise((resolve) => setTimeout(resolve, time))
+}
+function allStart() {
+for (const o of objects) {
+o.start?.()
+}
+}
+function update() {
+let gravityTimer = now()
+for (const o of objects) {
+o.gravity?.update()
+}
+gravityTimer = now() - gravityTimer
+let userTimer = now()
+for (const o of objects) {
+o.update?.()
+}
+userTimer = now() - userTimer
+let allTimer = gravityTimer + userTimer
+let gravityPercent = 0
+if (gravityTimer > 0) {
+gravityPercent = (gravityTimer / allTimer) * 100
+}
+let userPercent = 0
+if (userTimer > 0) {
+userPercent = (userTimer / allTimer) * 100
+}
+timers.update.gravity = gravityPercent
+timers.update.user = userPercent
+timers.update.all = allTimer
+}
+function render() {
+clear()
+let spriteTimer = now()
+for (const o of objects) {
+o.sprite?.render(o.transform)
+}
+spriteTimer = now() - spriteTimer
+let userTimer = now()
+for (const o of objects) {
+o.render?.()
+}
+userTimer = now() - userTimer
+const allTimer = spriteTimer + userTimer
+let userPercent = 0
+if (userTimer > 0) {
+userPercent = (userTimer / allTimer) * 100
+}
+let spritePercent = 0
+if (spriteTimer > 0) {
+spritePercent = (spriteTimer / allTimer) * 100
+}
+const h = 16
+const x = 200
+drawText(
+objects.length + " objects " + updatesLegit + "ups " + framesLegit + " fps",
+canvas.width - 2,
+2,
+"white",
+h,
+"right",
+"top"
+)
+drawText("Update", 0, 0, "white", h, "left", "top")
+drawText("Gravity: " + timers.update.gravity.toFixed(2) + "%", 0, h, "white", h, "left", "top")
+drawText("Dev Update: " + timers.update.user.toFixed(2) + "%", 0, h * 2, "white", h, "left", "top")
+drawText(
+"All: " + timers.update.all.toFixed(2) + "ms " + ((timers.update.all / ms) * 100).toFixed(2) + "% time",
+0,
+h * 3,
+"white",
+h,
+"left",
+"top"
+)
+drawText("Render", x, 0, "white", h, "left", "top")
+drawText("Sprite: " + spritePercent.toFixed(2) + "%", x, h, "white", h, "left", "top")
+drawText("Dev Render: " + userPercent.toFixed(2) + "%", x, h * 2, "white", h, "left", "top")
+drawText(
+"All: " + allTimer.toFixed(2) + "ms " + ((allTimer / ms) * 100).toFixed(2) + "% time",
+x,
+h * 3,
+"white",
+h,
+"left",
+"top"
+)
+}
+async function run() {
+let lastTime = now()
+let timer = now()
+let frames = 0
+let updates = 0
+let delta = 0
+while (running) {
+let nowVar = now()
+delta += (nowVar - lastTime) / ms
+lastTime = nowVar
+while (delta >= 1) {
+update()
+updates++
+delta--
+}
+render()
+frames++
+if (now() - timer > 1000) {
+timer += 1000
+updatesLegit = updates
+framesLegit = frames
+updates = 0
+frames = 0
+}
+await wait(1)
+}
+}
+class Obj {
+constructor({ transform, sprite, script }) {
+this.transform = transform
+if (sprite) this.sprite = sprite
+if (script) {
+for (const key in script) {
+if (script.hasOwnProperty(key)) {
+this[key] = script[key]
+}
+}
+}
+}
+}
+class Transform {
+constructor({ transform, position, rotation, scale }) {
+this.position = {
+x: 0,
+y: 0,
+}
+this.rotation = 0
+this.scale = {
+x: 1,
+y: 1,
+}
+if (transform) {
+this.position = deepCopy(transform.position)
+this.rotation = transform.rotation
+this.scale = deepCopy(transform.scale)
+}
+if (position) {
+this.position = {
+x: position.x,
+y: position.y,
+}
+}
+if (rotation) {
+this.rotation = rotation
+}
+if (scale) {
+this.scale = {
+x: scale.x,
+y: scale.y,
+}
+}
+}
+}
+class Sprite {
+constructor(color, width, height) {
+this.color = color
+this.width = width
+this.height = height
+}
+render(transform) {
+drawBoxMiddle(
+transform.position.x,
+transform.position.y,
+transform.scale.x * this.width,
+transform.scale.y * this.height,
+this.color
+)
+}
+}
+class Scene {
+constructor(objects) {
+this.objects = []
+for (const key in objects) {
+const object = objects[key]
+this[key] = object
+this.objects.push(object)
+}
+}
+load() {
+selectedScene.quit()
+selectedScene = this
+for (const o of this.objects) {
+objects.push(o)
+}
+allStart()
+}
+quit() {
+objects.length = 0
+}
+}`
 const hierarchy = document.getElementById(`hierarchy`)
 const inspector = document.getElementById(`inspector`)
 const objects = []
@@ -208,71 +512,13 @@ document.body.removeChild(this.textBox)
 document.body.removeChild(this.exitButton)
 }
 }
-const classObj = `class Obj {
-constructor({transform, sprite, script}) {
-this.transform = transform
-if(sprite) {
-this.sprite = sprite
-}
-if(script) {
-for(const key in script) {
-if(script.hasOwnProperty(key)) {
-this[key] = script[key]
-}
-}
-}
-}
-}`
-const classTransform = `class Transform {
-constructor({transform, position, rotation, scale}) {
-this.position = {
-x: 0,
-y: 0
-}
-this.rotation = 0
-this.scale = {
-x: 1,
-y: 1
-}
-if(transform) {
-this.position = deepCopy(transform.position)
-this.rotation = transform.rotation
-this.scale = deepCopy(transform.scale)
-}
-if(position) {
-this.position = {
-x: position.x,
-y: position.y
-}
-}
-if(rotation) {
-this.rotation = rotation
-}
-if(scale) {
-this.scale = {
-x: scale.x,
-y: scale.y
-}
-}
-}
-}`
-const classSprite = `class Sprite {
-constructor(color, width, height) {
-this.color = color
-this.width = width
-this.height = height
-}
-render = (transform) => {
-drawBoxMiddle(transform.position.x, transform.position.y, transform.scale.x * this.width, transform.scale.y * this.height, this.color)
-}
-}`
 class myImage {
 constructor(object, imagePath, rx = 0, ry = 0) {
 this.image = imagePath
 this.rectTransform = { x: rx, y: ry }
 object.image = this
 }
-render = (transform) => {
+render(transform) {
 ctx.save()
 ctx.rotate(transform.rotation)
 ctx.drawImage(
@@ -284,8 +530,8 @@ this.image.height * transform.scale.y
 )
 ctx.restore()
 }
-static toJson = (imageJS) =>
-JSON.stringify({
+static toJson(imageJS) {
+return JSON.stringify({
 image: {
 src: imageJS.image.src,
 width: imageJS.image.width,
@@ -295,7 +541,8 @@ position: imageJS.position,
 rotation: imageJS.rotation,
 rectTransform: imageJS.rectTransform,
 })
-static toJs = (imageJson) => {
+}
+static toJs(imageJson) {
 new myImage({
 image: objectToImage(imageJson.image),
 position: imageJson.position,
@@ -304,7 +551,7 @@ rectTransform: imageJson.rectTransform,
 })
 }
 }
-const imagesToJs = (file = files) => {
+function imagesToJs(file = files) {
 for (const key in file) {
 if (file[key].type == `image`) {
 file[key] = myImage.toJs(file[key].image)
@@ -313,28 +560,6 @@ imagesToJs(file[key])
 }
 }
 }
-const classScene = `class Scene {
-constructor(objects) {
-this.objects = []
-for(const key in objects) {
-const object = objects[key]
-this[key] = object
-this.objects.push(object)
-}
-}
-load = () => {
-selectedScene.quit()
-selectedScene = this
-for(const o of this.objects) {
-objects.push(o)
-}
-allStart()
-}
-quit = () => {
-objects.length = 0
-}
-}
-`
 function htmlCode() {
 return codeOptimalize(`
 <!DOCTYPE html>
@@ -401,214 +626,6 @@ console.log("exit")
 `
 : ``
 }
-const functions = `
-function randNum(min, max) {
-return Math.random() * (max - min) + min
-}
-function randInt(min, max) {
-return Math.floor(randNum(min, max))
-}
-function deepCopy(object) {
-if(typeof object !== "object" || object === null) {
-return object
-}
-const newObject = Array.isArray(object) ? [] : {}
-for(const key in object) {
-newObject[key] = deepCopy(object[key])
-}
-return newObject
-}
-function clone(object) {
-const newObject = new Obj({
-transform: new Transform({
-transform: deepCopy(object.transform)
-}),
-...(object.sprite ? {
-sprite: new Sprite(object.sprite.color, object.sprite.width, object.sprite.height)
-} : {})
-})
-for(const key in object) {
-if(object.hasOwnProperty(key) && !newObject.hasOwnProperty(key)) {
-if (typeof object[key] === "function") {
-newObject[key] = object[key].bind(newObject)
-} else {
-newObject[key] = object[key]
-}
-}
-}
-objects.push(newObject)
-newObject.start?.()
-}
-function createObject({object, transform, sprite}) {
-const newObject = deepCopy(object)
-newObject.awake?.()
-newObject.start?.()
-}
-function del(object, timeout = 0) {
-setTimeout(() => {
-if(objects.includes(object)) {
-for(const key in object) {
-delete object[key]
-}
-objects.splice(objects.indexOf(object), 1)
-}
-}, timeout)
-}
-function now() {
-return window.performance.now()
-}
-function clear() {
-ctx.fillStyle = "black"
-ctx.fillRect(0, 0, canvas.width, canvas.height)
-}
-function drawBox(x, y, w, h, color) {
-if(color) ctx.fillStyle = color
-ctx.fillRect(x, y, w, h)
-}
-function drawBoxMiddle(x, y, w, h, color) {
-if(color) {
-ctx.fillStyle = color
-}
-ctx.fillRect(x, y, w, h)
-}
-function drawText(text, x, y, color, h, textAlign, textBaseline) {
-if(color) ctx.fillStyle = color
-if(h) ctx.font = h + "px Arial"
-if(textBaseline) ctx.textBaseline = textBaseline
-if(textAlign) ctx.textAlign = textAlign
-ctx.fillText(text, x, y)
-}
-async function wait(time) {
-await new Promise(resolve => setTimeout(resolve, time))
-}
-`
-const startAndUpdate = `
-function allStart() {
-for(const o of objects) {
-o.start?.()
-}
-}
-timers = {
-update: {
-gravity: 0,
-user: 0,
-all: 0
-}
-}
-function update() {
-let gravityTimer = now()
-for(const o of objects) {
-o.gravity?.update()
-}
-gravityTimer = now() - gravityTimer
-let userTimer = now()
-for(const o of objects) {
-o.update?.()
-}
-userTimer = now() - userTimer
-let allTimer = gravityTimer + userTimer
-let gravityPercent = 0
-if(gravityTimer > 0) {
-gravityPercent = (gravityTimer / allTimer) * 100
-}
-let userPercent = 0
-if(userTimer > 0) {
-userPercent = (userTimer / allTimer) * 100
-}
-timers.update.gravity = gravityPercent
-timers.update.user = userPercent
-timers.update.all = allTimer
-}
-function render() {
-clear()
-let spriteTimer = now()
-for(const o of objects) {
-o.sprite?.render(o.transform)
-}
-spriteTimer = now() - spriteTimer
-let userTimer = now()
-for(const o of objects) {
-o.render?.()
-}
-userTimer = now() - userTimer
-const allTimer = spriteTimer + userTimer
-let userPercent = 0
-if(userTimer > 0) {
-userPercent = (userTimer / allTimer) * 100
-}
-let spritePercent = 0
-if(spriteTimer > 0) {
-spritePercent = (spriteTimer / allTimer) * 100
-}
-const h = 16
-const x = 200
-drawText(objects.length + " objects " + updatesLegit + "ups " + framesLegit + " fps", canvas.width - 2, 2, "white", h, "right", "top")
-drawText("Update", 0, 0, "white", h, "left", "top")
-drawText("Gravity: " + timers.update.gravity.toFixed(2) + "%", 0, h, "white", h, "left", "top")
-drawText("Dev Update: " + timers.update.user.toFixed(2) + "%", 0, h * 2, "white", h, "left", "top")
-drawText("All: " + timers.update.all.toFixed(2) + "ms " + (timers.update.all / ms * 100).toFixed(2) + "% time", 0, h * 3, "white", h, "left", "top")
-drawText("Render", x, 0, "white", h, "left", "top")
-drawText("Sprite: " + spritePercent.toFixed(2) + "%", x, h, "white", h, "left", "top")
-drawText("Dev Render: " + userPercent.toFixed(2) + "%", x, h * 2, "white", h, "left", "top")
-drawText("All: " + allTimer.toFixed(2) + "ms " + (allTimer / ms * 100).toFixed(2) + "% time", x, h * 3, "white", h, "left", "top")
-}
-let running = true
-const ms = 1000 / 60
-let updatesLegit = 0
-let framesLegit = 0
-async function run() {
-let lastTime = now()
-let timer = now()
-let frames = 0
-let updates = 0
-let delta = 0
-while(running) {
-let nowVar = now()
-delta += (nowVar - lastTime) / ms
-lastTime = nowVar
-while(delta >= 1) {
-update()
-updates++
-delta--
-}
-render()
-frames++
-if(now() - timer > 1000) {
-timer += 1000
-updatesLegit = updates
-framesLegit = frames
-updates = 0
-frames = 0
-}
-await wait(2)
-}
-}
-`
-const camera = `Camera = {
-transform: {
-position: {
-x: 0,
-y: 0
-},
-rotation: 0,
-scale: {
-x: 1,
-y: 1
-}
-}
-}`
-const staticJS = `
-const canvas = document.getElementById("gameCanvas")
-const ctx = canvas.getContext("2d")
-const objects = []
-${classObj}
-${classTransform}
-${classSprite}
-${classScene}
-${functions}
-${camera}
-${startAndUpdate}
-`
 const run = `
 resize()
 clear()
@@ -650,10 +667,7 @@ ${objectToString(o)}
 }
 function allScenes() {
 return `
-const scenes = [${scenes.reduce(
-(prev, s) => `${prev}new Scene(${allObjects(s.objects)}),`,
-``
-)}]
+const scenes = [${scenes.reduce((prev, s) => `${prev}new Scene(${allObjects(s.objects)}),`, ``)}]
 let selectedScene = scenes[0]
 `
 }
@@ -666,10 +680,7 @@ ${allScenes()}
 ${run}`
 }
 function buildGame() {
-downloadFile(
-`${config.gameName}.html`,
-`data:text/html;charset=utf-8,${encodeURIComponent(htmlCode())}`
-)
+downloadFile(`${config.gameName}.html`, `data:text/html;charset=utf-8,${encodeURIComponent(htmlCode())}`)
 }
 function findName(name) {
 if (!findElementByName(name)) {

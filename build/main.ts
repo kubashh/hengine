@@ -1,19 +1,29 @@
 import { readFileSync, writeFileSync } from "fs"
 
-const files = [
+const classesFile = `const staticJS = \`${encode(
+  optimalize(
+    readFileSync(`core/values/consts.js`),
+
+    readFileSync("core/util/util.js"),
+    readFileSync("core/util/startUpdateRun.js"),
+
+    readFileSync("core/classes/Obj.js"),
+    readFileSync("core/classes/Transform.js"),
+    readFileSync("core/classes/Sprite.js"),
+    readFileSync("core/classes/Scene.js")
+  )
+)}\``
+
+const jsFile = optimalize(
+  classesFile,
+
   readFileSync("src/lib/consts.js"),
   readFileSync("src/lib/util.js"),
   readFileSync("src/lib/classes.js"),
 
   // Build
-  readFileSync("src/build/classes/Obj.js"),
-  readFileSync("src/build/classes/Transform.js"),
-  readFileSync("src/build/classes/Sprite.js"),
-  readFileSync("src/build/classes/Scene.js"),
-
+  readFileSync("src/build/utilImg.js"),
   readFileSync("src/build/utilBuild.js"),
-  readFileSync("src/build/functions.js"),
-  readFileSync("src/build/startAndUpdate.js"),
   readFileSync("src/build/build.js"),
 
   // Editor
@@ -30,16 +40,17 @@ const files = [
   readFileSync("src/editor/inspector.js"),
 
   // Main
-  readFileSync("src/main.js"),
-]
-  .join(`\n`)
-  .replaceAll(/\/\*[\s\S]*?\*\/|\/\/.*/g, ``) // Remove comments
-  .split(`\n`) // Split into lines
-  .map((line) => line.trim()) // Trim lines
-  .filter((line) => line !== ``) // Remove empty lines
-  .join(`\n`) // Join lines
+  readFileSync("src/main.js")
+)
 
-writeFileSync(`dist/main.js`, files)
+function encode(s: string) {
+  const buf = []
+  for (const e of s) {
+    if (["`", `$`].includes(e)) buf.push(`\\`)
+    buf.push(e)
+  }
+  return buf.join(``)
+}
 
 // CSS
 
@@ -51,4 +62,15 @@ const cssFile = [readFileSync("src/styles/main.css"), readFileSync("src/styles/c
   .filter((line) => line !== ``) // Remove empty lines
   .join(`\n`) // Join lines
 
+function optimalize(...files: (string | NonSharedBuffer)[]) {
+  return files
+    .join(`\n`)
+    .replaceAll(/\/\*[\s\S]*?\*\/|\/\/.*/g, ``) // Remove comments
+    .split(`\n`) // Split into lines
+    .map((line) => line.trim()) // Trim lines
+    .filter((line) => line !== ``) // Remove empty lines
+    .join(`\n`) // Join lines
+}
+
+writeFileSync(`dist/main.js`, jsFile)
 writeFileSync(`dist/main.css`, cssFile)
