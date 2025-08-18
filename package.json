@@ -12,6 +12,6 @@
   },
   "prettier": {
     "semi": false,
-    "printWidth": 112
+    "printWidth": 108
   }
 }
