@@ -60,7 +60,7 @@ const cssFile = [readFileSync("src/styles/main.css"), readFileSync("src/styles/c
   .split(`\n`) // Split into lines
   .map((line) => line.trim()) // Trim lines
   .filter((line) => line !== ``) // Remove empty lines
-  .join(`\n`) // Join lines
+  .join(``) // Join lines
 
 function optimalize(...files: (string | NonSharedBuffer)[]) {
   return files
