@@ -77,12 +77,17 @@ function render() {
     `left`,
     `top`
   )
+
+  frames++
+  requestAnimationFrame(render)
 }
 
+let frames = 0
 async function run() {
+  requestAnimationFrame(render)
+
   let lastTime = now()
   let timer = now()
-  let frames = 0
   let updates = 0
   let delta = 0
   while (running) {
@@ -94,8 +99,6 @@ async function run() {
       updates++
       delta--
     }
-    render()
-    frames++
 
     if (now() - timer > 1000) {
       timer += 1000
