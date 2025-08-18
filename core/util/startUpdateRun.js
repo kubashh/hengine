@@ -1,32 +1,20 @@
 function allStart() {
-  for (const o of objects) {
-    o.start?.()
-  }
+  for (const o of objects) o.start?.()
 }
 
 function update() {
   let gravityTimer = now()
-  for (const o of objects) {
-    o.gravity?.update()
-  }
+  for (const o of objects) o.gravity?.update()
   gravityTimer = now() - gravityTimer
 
   let userTimer = now()
-  for (const o of objects) {
-    o.update?.()
-  }
+  for (const o of objects) o.update?.()
   userTimer = now() - userTimer
 
   let allTimer = gravityTimer + userTimer
 
-  let gravityPercent = 0
-  if (gravityTimer > 0) {
-    gravityPercent = (gravityTimer / allTimer) * 100
-  }
-  let userPercent = 0
-  if (userTimer > 0) {
-    userPercent = (userTimer / allTimer) * 100
-  }
+  const gravityPercent = gravityTimer > 0 ? (gravityTimer / allTimer) * 100 : 0
+  const userPercent = userTimer > 0 ? (userTimer / allTimer) * 100 : 0
 
   timers.update.gravity = gravityPercent
   timers.update.user = userPercent
@@ -37,67 +25,57 @@ function render() {
   clear()
 
   let spriteTimer = now()
-  for (const o of objects) {
-    o.sprite?.render(o.transform)
-  }
+  for (const o of objects) o.sprite?.render(o.transform)
   spriteTimer = now() - spriteTimer
 
   let userTimer = now()
-  for (const o of objects) {
-    o.render?.()
-  }
-  userTimer = now() - userTimer
+  for (const o of objects) o.render?.()
 
+  userTimer = now() - userTimer
   const allTimer = spriteTimer + userTimer
 
-  let userPercent = 0
-  if (userTimer > 0) {
-    userPercent = (userTimer / allTimer) * 100
-  }
-  let spritePercent = 0
-  if (spriteTimer > 0) {
-    spritePercent = (spriteTimer / allTimer) * 100
-  }
+  const userPercent = userTimer > 0 ? (userTimer / allTimer) * 100 : 0
+  const spritePercent = spriteTimer > 0 ? (spriteTimer / allTimer) * 100 : 0
 
   const h = 16
   const x = 200
 
   drawText(
-    objects.length + " objects " + updatesLegit + "ups " + framesLegit + " fps",
+    `${objects.length} objects ${updatesLegit}ups ${framesLegit}fps`,
     canvas.width - 2,
     2,
-    "white",
+    `white`,
     h,
-    "right",
-    "top"
+    `right`,
+    `top`
   )
 
   // Update
-  drawText("Update", 0, 0, "white", h, "left", "top")
-  drawText("Gravity: " + timers.update.gravity.toFixed(2) + "%", 0, h, "white", h, "left", "top")
-  drawText("Dev Update: " + timers.update.user.toFixed(2) + "%", 0, h * 2, "white", h, "left", "top")
+  drawText(`Update`, 0, 0, `white`, h, `left`, `top`)
+  drawText(`Gravity: ${timers.update.gravity.toFixed(2)}%`, 0, h, `white`, h, `left`, `top`)
+  drawText(`Dev Update: ${timers.update.user.toFixed(2)}%`, 0, h * 2, `white`, h, `left`, `top`)
   drawText(
-    "All: " + timers.update.all.toFixed(2) + "ms " + ((timers.update.all / ms) * 100).toFixed(2) + "% time",
+    `All: ${timers.update.all.toFixed(2)}ms ${((timers.update.all / ms) * 100).toFixed(2)}% time`,
     0,
     h * 3,
-    "white",
+    `white`,
     h,
-    "left",
-    "top"
+    `left`,
+    `top`
   )
 
   // Render
-  drawText("Render", x, 0, "white", h, "left", "top")
-  drawText("Sprite: " + spritePercent.toFixed(2) + "%", x, h, "white", h, "left", "top")
-  drawText("Dev Render: " + userPercent.toFixed(2) + "%", x, h * 2, "white", h, "left", "top")
+  drawText(`Render`, x, 0, `white`, h, `left`, `top`)
+  drawText(`Sprite: ${spritePercent.toFixed(2)}%`, x, h, `white`, h, `left`, `top`)
+  drawText(`Dev Render: ${userPercent.toFixed(2)}%`, x, h * 2, `white`, h, `left`, `top`)
   drawText(
-    "All: " + allTimer.toFixed(2) + "ms " + ((allTimer / ms) * 100).toFixed(2) + "% time",
+    `All: ${allTimer.toFixed(2)}ms ${((allTimer / ms) * 100).toFixed(2)}% time`,
     x,
     h * 3,
-    "white",
+    `white`,
     h,
-    "left",
-    "top"
+    `left`,
+    `top`
   )
 }
 

@@ -7,7 +7,7 @@ function randInt(min, max) {
 }
 
 function deepCopy(object) {
-  if (typeof object !== "object" || object === null) {
+  if (typeof object !== `object` || object === null) {
     return object
   }
 
@@ -33,7 +33,7 @@ function clone(object) {
   })
   for (const key in object) {
     if (object.hasOwnProperty(key) && !newObject.hasOwnProperty(key)) {
-      if (typeof object[key] === "function") {
+      if (typeof object[key] === `function`) {
         // Sprawdzenie, czy wartość jest funkcją
         newObject[key] = object[key].bind(newObject)
       } else {
@@ -69,7 +69,7 @@ function now() {
 }
 
 function clear() {
-  ctx.fillStyle = "black"
+  ctx.fillStyle = `black`
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 }
 
@@ -89,7 +89,7 @@ function drawBoxMiddle(x, y, w, h, color) {
 
 function drawText(text, x, y, color, h, textAlign, textBaseline) {
   if (color) ctx.fillStyle = color
-  if (h) ctx.font = h + "px Arial"
+  if (h) ctx.font = h + `px Arial`
   if (textBaseline) ctx.textBaseline = textBaseline
   if (textAlign) ctx.textAlign = textAlign
 

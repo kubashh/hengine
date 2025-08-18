@@ -1,15 +1,15 @@
 class Transform {
-  constructor({ transform, position, rotation, scale }) {
-    this.position = {
-      x: 0,
-      y: 0,
-    }
-    this.rotation = 0
-    this.scale = {
-      x: 1,
-      y: 1,
-    }
+  position = {
+    x: 0,
+    y: 0,
+  }
+  rotation = 0
+  scale = {
+    x: 1,
+    y: 1,
+  }
 
+  constructor({ transform, position, rotation, scale }) {
     if (transform) {
       this.position = deepCopy(transform.position)
       this.rotation = transform.rotation

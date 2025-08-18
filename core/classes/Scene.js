@@ -11,9 +11,7 @@ class Scene {
   load() {
     selectedScene.quit()
     selectedScene = this
-    for (const o of this.objects) {
-      objects.push(o)
-    }
+    for (const o of this.objects) objects.push(o)
 
     allStart()
   }

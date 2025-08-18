@@ -1,5 +1,5 @@
-const staticJS = `const canvas = document.getElementById("gameCanvas")
-const ctx = canvas.getContext("2d")
+const staticJS = `const canvas = document.getElementById(\`gameCanvas\`)
+const ctx = canvas.getContext(\`2d\`)
 const objects = []
 Camera = {
 transform: {
@@ -32,7 +32,7 @@ function randInt(min, max) {
 return Math.floor(randNum(min, max))
 }
 function deepCopy(object) {
-if (typeof object !== "object" || object === null) {
+if (typeof object !== \`object\` || object === null) {
 return object
 }
 const newObject = Array.isArray(object) ? [] : {}
@@ -54,7 +54,7 @@ sprite: new Sprite(object.sprite.color, object.sprite.width, object.sprite.heigh
 })
 for (const key in object) {
 if (object.hasOwnProperty(key) && !newObject.hasOwnProperty(key)) {
-if (typeof object[key] === "function") {
+if (typeof object[key] === \`function\`) {
 newObject[key] = object[key].bind(newObject)
 } else {
 newObject[key] = object[key]
@@ -83,7 +83,7 @@ function now() {
 return window.performance.now()
 }
 function clear() {
-ctx.fillStyle = "black"
+ctx.fillStyle = \`black\`
 ctx.fillRect(0, 0, canvas.width, canvas.height)
 }
 function drawBox(x, y, w, h, color) {
@@ -98,7 +98,7 @@ ctx.fillRect(x, y, w, h)
 }
 function drawText(text, x, y, color, h, textAlign, textBaseline) {
 if (color) ctx.fillStyle = color
-if (h) ctx.font = h + "px Arial"
+if (h) ctx.font = h + \`px Arial\`
 if (textBaseline) ctx.textBaseline = textBaseline
 if (textAlign) ctx.textAlign = textAlign
 ctx.fillText(text, x, y)
@@ -107,30 +107,18 @@ async function wait(time) {
 await new Promise((resolve) => setTimeout(resolve, time))
 }
 function allStart() {
-for (const o of objects) {
-o.start?.()
-}
+for (const o of objects) o.start?.()
 }
 function update() {
 let gravityTimer = now()
-for (const o of objects) {
-o.gravity?.update()
-}
+for (const o of objects) o.gravity?.update()
 gravityTimer = now() - gravityTimer
 let userTimer = now()
-for (const o of objects) {
-o.update?.()
-}
+for (const o of objects) o.update?.()
 userTimer = now() - userTimer
 let allTimer = gravityTimer + userTimer
-let gravityPercent = 0
-if (gravityTimer > 0) {
-gravityPercent = (gravityTimer / allTimer) * 100
-}
-let userPercent = 0
-if (userTimer > 0) {
-userPercent = (userTimer / allTimer) * 100
-}
+const gravityPercent = gravityTimer > 0 ? (gravityTimer / allTimer) * 100 : 0
+const userPercent = userTimer > 0 ? (userTimer / allTimer) * 100 : 0
 timers.update.gravity = gravityPercent
 timers.update.user = userPercent
 timers.update.all = allTimer
@@ -138,58 +126,48 @@ timers.update.all = allTimer
 function render() {
 clear()
 let spriteTimer = now()
-for (const o of objects) {
-o.sprite?.render(o.transform)
-}
+for (const o of objects) o.sprite?.render(o.transform)
 spriteTimer = now() - spriteTimer
 let userTimer = now()
-for (const o of objects) {
-o.render?.()
-}
+for (const o of objects) o.render?.()
 userTimer = now() - userTimer
 const allTimer = spriteTimer + userTimer
-let userPercent = 0
-if (userTimer > 0) {
-userPercent = (userTimer / allTimer) * 100
-}
-let spritePercent = 0
-if (spriteTimer > 0) {
-spritePercent = (spriteTimer / allTimer) * 100
-}
+const userPercent = userTimer > 0 ? (userTimer / allTimer) * 100 : 0
+const spritePercent = spriteTimer > 0 ? (spriteTimer / allTimer) * 100 : 0
 const h = 16
 const x = 200
 drawText(
-objects.length + " objects " + updatesLegit + "ups " + framesLegit + " fps",
+\`\${objects.length} objects \${updatesLegit}ups \${framesLegit}fps\`,
 canvas.width - 2,
 2,
-"white",
+\`white\`,
 h,
-"right",
-"top"
+\`right\`,
+\`top\`
 )
-drawText("Update", 0, 0, "white", h, "left", "top")
-drawText("Gravity: " + timers.update.gravity.toFixed(2) + "%", 0, h, "white", h, "left", "top")
-drawText("Dev Update: " + timers.update.user.toFixed(2) + "%", 0, h * 2, "white", h, "left", "top")
+drawText(\`Update\`, 0, 0, \`white\`, h, \`left\`, \`top\`)
+drawText(\`Gravity: \${timers.update.gravity.toFixed(2)}%\`, 0, h, \`white\`, h, \`left\`, \`top\`)
+drawText(\`Dev Update: \${timers.update.user.toFixed(2)}%\`, 0, h * 2, \`white\`, h, \`left\`, \`top\`)
 drawText(
-"All: " + timers.update.all.toFixed(2) + "ms " + ((timers.update.all / ms) * 100).toFixed(2) + "% time",
+\`All: \${timers.update.all.toFixed(2)}ms \${((timers.update.all / ms) * 100).toFixed(2)}% time\`,
 0,
 h * 3,
-"white",
+\`white\`,
 h,
-"left",
-"top"
+\`left\`,
+\`top\`
 )
-drawText("Render", x, 0, "white", h, "left", "top")
-drawText("Sprite: " + spritePercent.toFixed(2) + "%", x, h, "white", h, "left", "top")
-drawText("Dev Render: " + userPercent.toFixed(2) + "%", x, h * 2, "white", h, "left", "top")
+drawText(\`Render\`, x, 0, \`white\`, h, \`left\`, \`top\`)
+drawText(\`Sprite: \${spritePercent.toFixed(2)}%\`, x, h, \`white\`, h, \`left\`, \`top\`)
+drawText(\`Dev Render: \${userPercent.toFixed(2)}%\`, x, h * 2, \`white\`, h, \`left\`, \`top\`)
 drawText(
-"All: " + allTimer.toFixed(2) + "ms " + ((allTimer / ms) * 100).toFixed(2) + "% time",
+\`All: \${allTimer.toFixed(2)}ms \${((allTimer / ms) * 100).toFixed(2)}% time\`,
 x,
 h * 3,
-"white",
+\`white\`,
 h,
-"left",
-"top"
+\`left\`,
+\`top\`
 )
 }
 async function run() {
@@ -231,16 +209,16 @@ if (start) start()
 }
 }
 class Transform {
-constructor({ transform, position, rotation, scale }) {
-this.position = {
+position = {
 x: 0,
 y: 0,
 }
-this.rotation = 0
-this.scale = {
+rotation = 0
+scale = {
 x: 1,
 y: 1,
 }
+constructor({ transform, position, rotation, scale }) {
 if (transform) {
 this.position = deepCopy(transform.position)
 this.rotation = transform.rotation
@@ -291,9 +269,7 @@ this.objects.push(object)
 load() {
 selectedScene.quit()
 selectedScene = this
-for (const o of this.objects) {
-objects.push(o)
-}
+for (const o of this.objects) objects.push(o)
 allStart()
 }
 quit() {
@@ -567,7 +543,7 @@ return codeOptimalize(`
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="${config.author}">
 <meta name="description" content="${config.description}">
-<meta name="keywords" content="${config.gameName}, ${config.author}">
+<meta name="keywords" content="${config.gameName},${config.author}">
 <title>${config.gameName}</title>
 <style>
 body {
@@ -582,9 +558,7 @@ canvas { display:block; }
 </style>
 </head>
 <body>
-<canvas id="gameCanvas" width="${config.screenWidth}" height="${
-config.screenHeight
-}"></canvas>
+<canvas id="gameCanvas" width="${config.screenWidth}" height="${config.screenHeight}"></canvas>
 <script>
 ${jsCode()}
 </script>
