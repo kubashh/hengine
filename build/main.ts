@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "fs"
+import { readFileSync } from "fs"
 
 const classesFile = `const staticJS = \`${encode(
   optimalize(
@@ -72,5 +72,5 @@ function optimalize(...files: (string | NonSharedBuffer)[]) {
     .join(`\n`) // Join lines
 }
 
-writeFileSync(`dist/main.js`, jsFile)
-writeFileSync(`dist/main.css`, cssFile)
+await Bun.write(`dist/main.js`, jsFile)
+await Bun.write(`dist/main.css`, cssFile)
