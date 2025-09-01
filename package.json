@@ -1,5 +1,4 @@
 {
-  "name": "hengine",
   "private": true,
   "scripts": {
     "build": "bun build/main.ts"
