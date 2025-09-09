@@ -1,4 +1,4 @@
-const staticJS = `const canvas = document.getElementById(\`gameCanvas\`)
+const core = `const canvas = document.getElementById(\`gameCanvas\`)
 const ctx = canvas.getContext(\`2d\`)
 const objects = []
 Camera = {
@@ -646,7 +646,7 @@ let selectedScene = scenes[0]
 }
 function jsCode() {
 return `
-${staticJS}
+${core}
 ${fullScreen()}
 ${safeUnload()}
 ${allScenes()}

@@ -52,7 +52,7 @@ function allScenes() {
 
 function jsCode() {
   return `
-  ${staticJS}
+  ${core}
 
   ${fullScreen()}
   ${safeUnload()}

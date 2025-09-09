@@ -1,6 +1,6 @@
 import { readFileSync } from "fs"
 
-const classesFile = `const staticJS = \`${encode(
+const classesFile = `const core = \`${encode(
   optimalize(
     readFileSync(`core/values/consts.js`),
 
